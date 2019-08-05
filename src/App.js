@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+
+import { Provider as ReduxProvider } from "react-redux";
+import configureStore from "./modules/store";
+
+const reduxStore = configureStore(window.REDUX_INITIAL_DATA);
+
+class App extends Component {
+    render() {
+        return (
+        <ReduxProvider store={reduxStore}>
+        <div className="App">
+        <Container>
+            <Row> <h6>&nbsp;</h6> </Row>
+            <Row>
+                <h1>[s]Cube Report SQL Builder</h1>
+            </Row>
+            <hr/>
+            HELLO
+            <hr/>
+        </Container>
+        </div>
+        </ReduxProvider>
+        );
+    }
 }
 
 export default App;

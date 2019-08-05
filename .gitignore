@@ -7,9 +7,11 @@
 
 # testing
 /coverage
+cloc*
 
 # production
 /build
+build*
 
 # misc
 .DS_Store
