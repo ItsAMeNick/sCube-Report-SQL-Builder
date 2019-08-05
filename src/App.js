@@ -5,6 +5,9 @@ import Row from "react-bootstrap/Row";
 
 import "./App.css";
 
+import Core from "./components/CORE_Container.js";
+import Output from "./components/CORE_Output.js";
+
 import { Provider as ReduxProvider } from "react-redux";
 import configureStore from "./modules/store";
 
@@ -20,9 +23,12 @@ class App extends Component {
             <Row>
                 <h1>[s]Cube Report SQL Builder</h1>
             </Row>
-            <hr/>
-            HELLO
-            <hr/>
+            <Row><hr/></Row>
+            <Col>
+                <h3>Data Selection</h3>
+                <Core/>
+            </Col>
+            <Col><Output/></Col>
         </Container>
         </div>
         </ReduxProvider>

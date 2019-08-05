@@ -11,6 +11,12 @@ const sCubeReducer = (state = initialState, action) => {
         return state;
     }
 
+    case "update_item": {
+        let newState = _.cloneDeep(state);
+        newState.mode = action.payload.mode;
+        return newState;
+    }
+
     default:
         return state;
     }
