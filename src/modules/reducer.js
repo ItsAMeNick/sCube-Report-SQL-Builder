@@ -2,35 +2,29 @@ import _ from "lodash";
 
 const initialState = {
     mode: null,
-    sources: {
+    fields: {
         "1": {
             key: 1,
-            name: null,
-            table: null,
-            table_name: null,
-            parent: null,
-            conditions: {
-                "1": {
-                    key: 1,
-                    field: null,
-                    type: null,
-                    value: null
-                }
-            },
-            fields: {
-                "1": {
-                    key: 1,
-                    value: null,
-                    reference: null,
-                }
-            }
+            table: "",
+            field_name: "",
+            report_name: "",
+        }
+    },
+    filters: {
+        "1": {
+            key: 1,
+            table: "",
+            field_name: "",
+            comparison: "",
+            value: "",
         }
     },
     parameters: {
         "1": {
             key: 1,
-            name: null,
-            type: null
+            name: "",
+            type: "",
+            ref: ""
         }
     }
 };
@@ -42,9 +36,43 @@ const sCubeReducer = (state = initialState, action) => {
         return state;
     }
 
+    case "add_item": {
+        let newState = _.cloneDeep(state);
+        switch (action.payload.type) {
+            case "field": {
+                let codes = Object.keys(state.fields);
+                let m = 0;
+                for (let c in codes) {
+                    m = Math.max(m,state.fields[codes[c]].key);
+                }
+                m+=1;
+                newState.fields[m] =
+                    {
+                        key: m,
+                        table: "",
+                        field_name: "",
+                        report_name: "",
+                    }
+                break;
+            }
+            case "filter": {
+                break;
+            }
+            case "parameter": {
+                break;
+            }
+            default: break;
+        }
+        return newState;
+    }
     case "update_item": {
         let newState = _.cloneDeep(state);
-        newState.mode = action.payload.mode;
+        newState[action.payload.type][action.payload.ref] = action.payload.item;
+        return newState;
+    }
+    case "delete_item": {
+        let newState = _.cloneDeep(state);
+        delete newState[action.payload.type][action.payload.ref];
         return newState;
     }
 
