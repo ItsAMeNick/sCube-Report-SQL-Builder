@@ -1,0 +1,11 @@
+.Container {
+    border: solid LightGray 1px;
+    padding: 10px;
+    margin: auto;
+    max-width: 1500px;
+    align-items: center;
+}
+
+.darkHR {
+    border-color: DarkGray;
+}

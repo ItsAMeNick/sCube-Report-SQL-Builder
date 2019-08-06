@@ -20,3 +20,5 @@ var accela_data = {
         }
     }
 }
+
+export default {accela_data};
