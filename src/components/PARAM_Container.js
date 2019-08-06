@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 
 import "./Container.css";
 
+import ParamItem from "./PARAM_Item.js";
 import Table from "react-bootstrap/Table";
-import Form from "react-bootstrap/Form";
 
 class PARAM_Container extends Component {
     constructor(props) {
@@ -13,23 +13,14 @@ class PARAM_Container extends Component {
     }
 
     generateRows() {
+        let rows = [];
+        for (let i in this.props.parameters) {
+            rows.push(
+                <ParamItem key={i} id={i}/>
+            );
+        }
         return (
-            <Table bordered striped>
-            <thead>
-                <tr>
-                    <th>Parameter</th>
-                    <th>Data Type</th>
-                    <th>Report Variable Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><Form.Control/></td>
-                    <td><Form.Control as="select"><option label="Text"/></Form.Control></td>
-                    <td><Form.Control readOnly></Form.Control></td>
-                </tr>
-            </tbody>
-            </Table>
+            rows
         );
     }
 
@@ -37,17 +28,33 @@ class PARAM_Container extends Component {
         return (
             <div className="Container">
                 <h3>User Input (PARAM)</h3>
-                {this.generateRows()}
-                <button>Add Source</button>
+                <Table bordered striped>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Data Type</th>
+                        <th>Report Variable Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.generateRows()}
+                </tbody>
+                </Table>
+                <button onClick={this.props.add}>Add Parameter</button>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
+    parameters: state.parameters
 });
 
 const mapDispatchToProps = dispatch => ({
+    add: () => dispatch({
+        type: "add_item",
+        payload: {type: "parameter"}
+    })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PARAM_Container);

@@ -11,6 +11,7 @@ import Field from "./components/FIELD_Container.js";
 import Param from "./components/PARAM_Container.js";
 
 import Output from "./components/CORE_Output.js";
+import Debug from "./components/TEST_Debug.js";
 
 import { Provider as ReduxProvider } from "react-redux";
 import configureStore from "./modules/store";
@@ -43,6 +44,7 @@ class App extends Component {
             <Col>
                 <Param/>
             </Col>
+            <Debug/>
             <Col><Output/></Col>
         </div>
         </ReduxProvider>

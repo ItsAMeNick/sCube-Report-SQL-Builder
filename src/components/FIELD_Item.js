@@ -42,10 +42,10 @@ class FIELD_Container extends Component {
                 <td><Form.Control id={"table-"+this.props.id} as="select" onChange={this.handleChange()}>
                     {this.getAccelaTables()}
                 </Form.Control></td>
-                <td><Form.Control as="select" onChange={this.handleChange()}>
-                    {this.getAccelaFields("Permit Information")}
+                <td><Form.Control id={"field_name-"+this.props.id} as="select" onChange={this.handleChange()}>
+                    {this.getAccelaFields(this.props.fields[this.props.id].table)}
                 </Form.Control></td>
-                <td><Form.Control readOnly value={this.props.fields[this.props.id].report_name}></Form.Control></td>
+                <td><Form.Control id={"report_name-"+this.props.id} readOnly value={this.props.fields[this.props.id].report_name}></Form.Control></td>
             </tr>
         );
     }
@@ -56,8 +56,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    add: item => dispatch({
-        type: "add_item",
+    update: item => dispatch({
+        type: "update_item",
         payload: item
     }),
 });

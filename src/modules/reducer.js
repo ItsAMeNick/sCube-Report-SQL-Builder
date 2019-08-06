@@ -7,7 +7,7 @@ const initialState = {
             key: 1,
             table: "",
             field_name: "",
-            report_name: "",
+            report_name: ""
         }
     },
     filters: {
@@ -16,7 +16,7 @@ const initialState = {
             table: "",
             field_name: "",
             comparison: "",
-            value: "",
+            value: ""
         }
     },
     parameters: {
@@ -36,6 +36,12 @@ const sCubeReducer = (state = initialState, action) => {
         return state;
     }
 
+    case "update_type": {
+        let newState = _.cloneDeep(state);
+        newState.mode = action.payload;
+        return newState;
+    }
+
     case "add_item": {
         let newState = _.cloneDeep(state);
         switch (action.payload.type) {
@@ -51,14 +57,41 @@ const sCubeReducer = (state = initialState, action) => {
                         key: m,
                         table: "",
                         field_name: "",
-                        report_name: "",
+                        report_name: ""
                     }
                 break;
             }
             case "filter": {
+                let codes = Object.keys(state.filters);
+                let m = 0;
+                for (let c in codes) {
+                    m = Math.max(m,state.filters[codes[c]].key);
+                }
+                m+=1;
+                newState.filters[m] =
+                    {
+                        key: m,
+                        table: "",
+                        field_name: "",
+                        comparison: "",
+                        value: ""
+                    }
                 break;
             }
             case "parameter": {
+                let codes = Object.keys(state.parameters);
+                let m = 0;
+                for (let c in codes) {
+                    m = Math.max(m,state.parameters[codes[c]].key);
+                }
+                m+=1;
+                newState.parameters[m] =
+                    {
+                        key: m,
+                        name: "",
+                        type: "",
+                        ref: ""
+                    }
                 break;
             }
             default: break;

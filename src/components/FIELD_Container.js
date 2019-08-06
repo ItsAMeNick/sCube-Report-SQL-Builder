@@ -40,7 +40,7 @@ class FIELD_Container extends Component {
                     {this.generateRows()}
                 </tbody>
                 </Table>
-                <button onClick={() => {this.props.add({type: "field"})}}>Add Item</button>
+                <button onClick={this.props.add}>Add Item</button>
             </div>
         );
     }
@@ -51,9 +51,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    add: item => dispatch({
+    add: () => dispatch({
         type: "add_item",
-        payload: item
+        payload: {type: "field"}
     }),
 });
 

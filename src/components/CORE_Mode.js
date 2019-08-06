@@ -15,10 +15,10 @@ class CORE_Mode extends Component {
         return (
             <div className="Container">
                 <h3>Report Type: </h3>
-                <Form.Control as="select">
+                <Form.Control as="select" onChange={e => this.props.update(e.target.value)}>
                     <option/>
-                    <option label="Oracle"/>
-                    <option label="SQL Server"/>
+                    <option label="Oracle" value="Oracle"/>
+                    <option label="SQL Server" value="SQL Server"/>
                 </Form.Control>
             </div>
         );
@@ -29,6 +29,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    update: m => dispatch({
+        type: "update_type",
+        payload: m
+    })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CORE_Mode);
