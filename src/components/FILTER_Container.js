@@ -6,7 +6,7 @@ import "./Container.css";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 
-class PARAM_Container extends Component {
+class Filter_Container extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -17,16 +17,18 @@ class PARAM_Container extends Component {
             <Table bordered striped>
             <thead>
                 <tr>
-                    <th>Parameter</th>
-                    <th>Data Type</th>
-                    <th>Report Variable Name</th>
+                    <th>Table</th>
+                    <th>Field</th>
+                    <th>Is</th>
+                    <th>Value</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><Form.Control/></td>
-                    <td><Form.Control as="select"><option label="Text"/></Form.Control></td>
-                    <td><Form.Control readOnly></Form.Control></td>
+                    <td><Form.Control as="select"><option label="Permit Information"/></Form.Control></td>
+                    <td><Form.Control as="select"><option label="Record ID"/></Form.Control></td>
+                    <td><Form.Control as="select"><option label="Equal To"/></Form.Control></td>
+                    <td><Form.Control></Form.Control></td>
                 </tr>
             </tbody>
             </Table>
@@ -36,7 +38,7 @@ class PARAM_Container extends Component {
     render() {
         return (
             <div className="Container">
-                <h3>User Input (PARAM)</h3>
+                <h3>Filters (FILTER)</h3>
                 {this.generateRows()}
                 <button>Add Source</button>
             </div>
@@ -50,4 +52,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PARAM_Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Filter_Container);

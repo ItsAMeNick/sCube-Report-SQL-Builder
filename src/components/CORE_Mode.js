@@ -17,8 +17,8 @@ class CORE_Mode extends Component {
                 <h3>Report Type: </h3>
                 <Form.Control as="select">
                     <option/>
-                    <option label="Crystal"/>
-                    <option label="SSRS"/>
+                    <option label="Oracle"/>
+                    <option label="SQL Server"/>
                 </Form.Control>
             </div>
         );

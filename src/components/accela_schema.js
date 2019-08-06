@@ -2,6 +2,7 @@ var accela_data = {
     "Permit Information": {
         table_name: "B1PERMIT",
         join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
+        required: [],
         data: {
             "Record ID": {
                 table_key: "B1_ALT_ID",
@@ -12,6 +13,7 @@ var accela_data = {
     "Address Information": {
         table_name: "B3ADDRES",
         join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
+        required: [],
         data: {
             "Street_Name": {
                 table_key: "B1_STR_NAME",

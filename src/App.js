@@ -6,7 +6,7 @@ import "./App.css";
 
 import Mode from "./components/CORE_Mode.js";
 
-import Src from "./components/SRC_Container.js";
+import Filter from "./components/FILTER_Container.js";
 import Field from "./components/FIELD_Container.js";
 import Param from "./components/PARAM_Container.js";
 
@@ -33,11 +33,11 @@ class App extends Component {
             </Col>
             <hr/>
             <Col>
-                <Src/>
+                <Field/>
             </Col>
             <hr/>
             <Col>
-                <Field/>
+                <Filter/>
             </Col>
             <hr/>
             <Col>
