@@ -6,14 +6,14 @@ const initialState = {
         "1": {
             key: 1,
             table: "",
-            field_name: "",
-            report_name: ""
+            field: "",
+            report: ""
         }
     },
     filters: {
         "1": {
             key: 1,
-            table: "",
+            table_name: "",
             field_name: "",
             comparison: "",
             value: ""
@@ -22,9 +22,9 @@ const initialState = {
     parameters: {
         "1": {
             key: 1,
-            name: "",
-            type: "",
-            ref: ""
+            parameter_name: "",
+            data_type: "",
+            report_var: ""
         }
     }
 };
@@ -56,8 +56,8 @@ const sCubeReducer = (state = initialState, action) => {
                     {
                         key: m,
                         table: "",
-                        field_name: "",
-                        report_name: ""
+                        field: "",
+                        report: ""
                     }
                 break;
             }
@@ -71,7 +71,7 @@ const sCubeReducer = (state = initialState, action) => {
                 newState.filters[m] =
                     {
                         key: m,
-                        table: "",
+                        table_name: "",
                         field_name: "",
                         comparison: "",
                         value: ""
@@ -88,9 +88,9 @@ const sCubeReducer = (state = initialState, action) => {
                 newState.parameters[m] =
                     {
                         key: m,
-                        name: "",
-                        type: "",
-                        ref: ""
+                        parameter_name: "",
+                        data_type: "",
+                        report_var: ""
                     }
                 break;
             }
@@ -100,6 +100,7 @@ const sCubeReducer = (state = initialState, action) => {
     }
     case "update_item": {
         let newState = _.cloneDeep(state);
+        console.log(action.payload);
         newState[action.payload.type][action.payload.ref] = action.payload.item;
         return newState;
     }
