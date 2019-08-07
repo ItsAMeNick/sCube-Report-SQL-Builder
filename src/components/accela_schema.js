@@ -78,10 +78,6 @@ var accela_data = {
         parent: null,
         join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
         required: {
-            "ASI Group": {
-                table_key: "B1_CHECKBOX_TYPE",
-                name: "ASI_Group"
-            },
             "ASI Field Name": {
                 table_key: "B1_CHECKBOX_DESC",
                 name: "ASI_Field"

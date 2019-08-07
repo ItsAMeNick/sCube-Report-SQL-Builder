@@ -62,7 +62,9 @@ class Filter_Container extends Component {
                     </Form.Control></td>
                 </React.Fragment> }
                 <td><Form.Control id={"comparison-"+this.props.id} as="select" onChange={this.handleChange}>
-                    <option value="Equal To"/>
+                    <option label="" value=""/>
+                    <option label="Equal To" value="=="/>
+                    <option label="Not Equal To" value="!="/>
                 </Form.Control></td>
                 <td><Form.Control id={"value-"+this.props.id} onChange={this.handleChange}/></td>
             </tr>

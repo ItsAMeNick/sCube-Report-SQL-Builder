@@ -58,7 +58,9 @@ class CORE_Output extends Component {
 
                 let conditions = [];
                 //Add On clause
-                for (let i in schema[tables_used[t]].table_name);
+                for (let i in schema[tables_used[t]].table_name) {
+
+                }
 
                 //Add the Filters
                 let filters = this.props.state.filters;
