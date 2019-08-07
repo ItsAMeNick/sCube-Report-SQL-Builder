@@ -44,8 +44,8 @@ class Filter_Container extends Component {
     render() {
         return (
             <tr>
-                <td>{this.props.id}</td>
                 { this.props.req ? <React.Fragment>
+                    <td>{this.props.id.split("-")[0] + "-" + this.props.id.split("-")[1]}</td>
                     <td>
                         <Form.Control id={"table_name-"+this.props.id} value={this.props.filters[this.props.id].table_name} readOnly onChange={this.handleChange}/>
                     </td>
@@ -53,6 +53,7 @@ class Filter_Container extends Component {
                         <Form.Control id={"field_name-"+this.props.id} value={this.props.filters[this.props.id].field_name} readOnly onChange={this.handleChange}/>
                     </td>
                 </React.Fragment> : <React.Fragment>
+                    <td>{this.props.id}</td>
                     <td><Form.Control id={"table_name-"+this.props.id} as="select" onChange={this.handleChange}>
                         {this.getAccelaTables()}
                     </Form.Control></td>

@@ -1,6 +1,7 @@
 var accela_data = {
     "Permit Information": {
         table_name: "B1PERMIT",
+        shortname: "b1",
         parent: null,
         join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
         required: null,
@@ -29,6 +30,7 @@ var accela_data = {
     },
     "Address Information": {
         table_name: "B3ADDRES",
+        shortname: "addres",
         parent: null,
         join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
         required: null,
@@ -72,6 +74,7 @@ var accela_data = {
     },
     "ASI Field": {
         table_name: "BCHCKBOX",
+        shortname: "asi",
         parent: null,
         join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
         required: {
@@ -93,9 +96,15 @@ var accela_data = {
     },
     "Table Name Seen By User": {
         table_name: "ACCELA TABLE NAME",
+        shortname: "short",
         parent: "My Parent's user friendly name, who would you need to join through",
         join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
-        required: {},
+        required: {
+            "User friendly field name": {
+                table_key: "table key",
+                name: "base for my report reference name"
+            }
+        },
         data: {
             "User friendly field name": {
                 table_key: "table key",
