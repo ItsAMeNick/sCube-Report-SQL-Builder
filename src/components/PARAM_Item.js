@@ -24,6 +24,7 @@ class PARAM_Item extends Component {
     render() {
         return (
             <tr>
+                <td>{this.props.id}</td>
                 <td><Form.Control id={"parameter_name-"+this.props.id} onChange={this.handleChange}/></td>
                 <td><Form.Control id={"data_type-"+this.props.id} as="select">
                     <option value="" label=""/>

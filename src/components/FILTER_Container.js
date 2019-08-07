@@ -41,6 +41,7 @@ class Filter_Container extends Component {
                 <Table bordered striped>
                 <thead>
                     <tr>
+                        <td>#</td>
                         <th>Table</th>
                         <th>Field</th>
                         <th>Is</th>

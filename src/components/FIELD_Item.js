@@ -86,6 +86,7 @@ class FIELD_Container extends Component {
     render() {
         return (
             <tr>
+                <td>{this.props.id}</td>
                 <td><Form.Control id={"table-"+this.props.id} as="select" onChange={this.handleChange}>
                     {this.getAccelaTables()}
                 </Form.Control></td>

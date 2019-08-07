@@ -44,6 +44,7 @@ class Filter_Container extends Component {
     render() {
         return (
             <tr>
+                <td>{this.props.id}</td>
                 { this.props.req ? <React.Fragment>
                     <td>
                         <Form.Control id={"table_name-"+this.props.id} value={this.props.filters[this.props.id].table_name} readOnly onChange={this.handleChange}/>

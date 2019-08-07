@@ -31,6 +31,7 @@ class PARAM_Container extends Component {
                 <Table bordered striped>
                 <thead>
                     <tr>
+                        <td>#</td>
                         <th>Parameter</th>
                         <th>Data Type</th>
                         <th>Report Variable Name</th>

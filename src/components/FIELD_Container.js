@@ -31,6 +31,7 @@ class FIELD_Container extends Component {
                 <Table bordered striped>
                 <thead>
                     <tr>
+                        <td>#</td>
                         <th>Table</th>
                         <th>Field</th>
                         <th>Report Variable Name</th>
