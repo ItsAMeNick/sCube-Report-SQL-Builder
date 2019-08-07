@@ -16,7 +16,7 @@ class Filter_Container extends Component {
         let rows = [];
         for (let i in this.props.filters) {
             rows.push(
-                <FilterItem key={i} id={i}/>
+                <FilterItem key={i} id={i} req={false}/>
             );
         }
         return (

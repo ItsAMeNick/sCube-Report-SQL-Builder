@@ -13,6 +13,7 @@ const initialState = {
     filters: {
         "1": {
             key: 1,
+            req: false,
             table_name: "",
             field_name: "",
             comparison: "",
@@ -71,6 +72,7 @@ const sCubeReducer = (state = initialState, action) => {
                 newState.filters[m] =
                     {
                         key: m,
+                        req: false,
                         table_name: "",
                         field_name: "",
                         comparison: "",
@@ -100,7 +102,6 @@ const sCubeReducer = (state = initialState, action) => {
     }
     case "update_item": {
         let newState = _.cloneDeep(state);
-        console.log(action.payload);
         newState[action.payload.type][action.payload.ref] = action.payload.item;
         return newState;
     }

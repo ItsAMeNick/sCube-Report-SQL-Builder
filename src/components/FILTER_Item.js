@@ -44,12 +44,21 @@ class Filter_Container extends Component {
     render() {
         return (
             <tr>
-                <td><Form.Control id={"table_name-"+this.props.id} as="select" onChange={this.handleChange}>
-                    {this.getAccelaTables()}
-                </Form.Control></td>
-                <td><Form.Control id={"field_name-"+this.props.id} as="select" onChange={this.handleChange}>
-                    {this.getAccelaFields(this.props.filters[this.props.id].table)}
-                </Form.Control></td>
+                { this.props.req ? <React.Fragment>
+                    <td>
+                        <Form.Control id={"table_name-"+this.props.id} value={this.props.filters[this.props.id].table_name} readOnly onChange={this.handleChange}/>
+                    </td>
+                    <td>
+                        <Form.Control id={"field_name-"+this.props.id} value={this.props.filters[this.props.id].field_name} readOnly onChange={this.handleChange}/>
+                    </td>
+                </React.Fragment> : <React.Fragment>
+                    <td><Form.Control id={"table_name-"+this.props.id} as="select" onChange={this.handleChange}>
+                        {this.getAccelaTables()}
+                    </Form.Control></td>
+                    <td><Form.Control id={"field_name-"+this.props.id} as="select" onChange={this.handleChange}>
+                        {this.getAccelaFields(this.props.filters[this.props.id].table)}
+                    </Form.Control></td>
+                </React.Fragment> }
                 <td><Form.Control id={"comparison-"+this.props.id} as="select" onChange={this.handleChange}>
                     <option value="Equal To"/>
                 </Form.Control></td>
