@@ -52,20 +52,35 @@ class CORE_Output extends Component {
         let text = "";
         if (tables_used.length >= 1) {
             text += "FROM " + schema[tables_used[0]].table_name + " " + schema[tables_used[0]].shortname + "\n";
+            text += "\n";
 
             for (let t = 1; t < tables_used.length; t++) {
                 text += "LEFT JOIN " + schema[tables_used[t]].table_name + " " + schema[tables_used[t]].shortname + "\n";
 
                 let conditions = [];
                 //Add On clause
-                for (let i in schema[tables_used[t]].table_name) {
-
+                for (let i in schema[tables_used[t]].join_clause) {
+                    if (schema[tables_used[0]].join_clause.includes(schema[tables_used[t]].join_clause[i])) {
+                        conditions.push(schema[tables_used[t]].join_clause[i]);
+                    }
                 }
+
+                console.log(conditions);
 
                 //Add the Filters
                 let filters = this.props.state.filters;
                 for (let f in filters) {
                     console.log(f);
+                }
+
+                for (let c in conditions) {
+                    console.log(c);
+                    if (c === "0") {
+                        text += "ON ";
+                    } else {
+                        text += "AND ";
+                    }
+                    text +=  schema[tables_used[t]].shortname + "." + conditions[c] + " = " + schema[tables_used[0]].shortname + "." + conditions[c] + "\n";
                 }
 
 
@@ -79,7 +94,7 @@ class CORE_Output extends Component {
         return (
         <div>
             <hr/>
-            <textarea rows="10" style={{width: "100%", fontFamily: "\"Courier New\", Courier, monospace"}} value={this.generateSQL()} readOnly={true} />
+            <textarea rows="20" style={{width: "100%", fontFamily: "\"Courier New\", Courier, monospace"}} value={this.generateSQL()} readOnly={true} />
         </div>
         );
     }
