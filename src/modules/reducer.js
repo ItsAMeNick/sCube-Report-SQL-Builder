@@ -4,29 +4,29 @@ const initialState = {
     mode: null,
     fields: {
         "1": {
-            key: 1,
+            key: "1",
             table: "",
             field: "",
             report: ""
         }
     },
     filters: {
-        "1": {
-            key: 1,
-            req: false,
-            table_name: "",
-            field_name: "",
-            comparison: "",
-            value: ""
-        }
+        // "1": {
+        //     key: "1",
+        //     req: false,
+        //     table_name: "",
+        //     field_name: "",
+        //     comparison: "",
+        //     value: ""
+        // }
     },
     parameters: {
-        "1": {
-            key: 1,
-            parameter_name: "",
-            data_type: "",
-            report_var: ""
-        }
+        // "1": {
+        //     key: "1",
+        //     parameter_name: "",
+        //     data_type: "",
+        //     report_var: ""
+        // }
     }
 };
 
@@ -66,6 +66,7 @@ const sCubeReducer = (state = initialState, action) => {
                 let codes = Object.keys(state.filters);
                 let m = 0;
                 for (let c in codes) {
+                    if (isNaN(state.filters[codes[c]].key)) continue;
                     m = Math.max(m,state.filters[codes[c]].key);
                 }
                 m+=1;
@@ -108,6 +109,12 @@ const sCubeReducer = (state = initialState, action) => {
     case "delete_item": {
         let newState = _.cloneDeep(state);
         delete newState[action.payload.type][action.payload.ref];
+        return newState;
+    }
+
+    case "add_specific_filter": {
+        let newState = _.cloneDeep(state);
+        newState.filters[action.payload.ref] = action.payload.item
         return newState;
     }
 

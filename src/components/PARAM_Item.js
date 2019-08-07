@@ -25,7 +25,12 @@ class PARAM_Item extends Component {
         return (
             <tr>
                 <td><Form.Control id={"parameter_name-"+this.props.id} onChange={this.handleChange}/></td>
-                <td><Form.Control id={"data_type-"+this.props.id} as="select"><option label="Text"/></Form.Control></td>
+                <td><Form.Control id={"data_type-"+this.props.id} as="select">
+                    <option value="" label=""/>
+                    <option value="Text" label="Text"/>
+                    <option value="Number" label="Number"/>
+                    <option value="Date" label="Date"/>
+                </Form.Control></td>
                 <td><Form.Control id={"report_param-"+this.props.id} readOnly></Form.Control></td>
             </tr>
         );

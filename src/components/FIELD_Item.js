@@ -20,8 +20,50 @@ class FIELD_Container extends Component {
         let newItem = _.cloneDeep(this.props.fields[this.props.id]);
         let type = event.target.id.split("-")[0];
 
+        //Update this field
         newItem[type] = event.target.value;
         this.props.update(this.props.id, newItem);
+
+        //Handle required Filters - Maybe move to another function
+        if (type === "field") {
+            let required_fields = schema[this.props.fields[this.props.id].table].required
+            if (required_fields) {
+                let keys = Object.keys(required_fields);
+                for (let r in keys) {
+                    let filterRef = "R-" + this.props.id + "-" + keys[r];
+
+                    var newFilter = {
+                                    key: filterRef,
+                                    req: true,
+                                    table_name: this.props.fields[this.props.id].table,
+                                    field_name: event.target.value,
+                                    comparison: "",
+                                    value: ""
+                                    };
+
+                    if (!this.props.filters[filterRef]) {
+                        this.props.addFilter(filterRef, newFilter);
+                    } else {
+                        this.props.requireFilter(filterRef, newFilter);
+                    }
+                }
+            }
+        } else if (type === "table") {
+            //If the table changes remove any required filters associated with this field
+            if (this.props.fields[this.props.id].table) {
+                let required_fields = schema[this.props.fields[this.props.id].table].required
+                if (required_fields) {
+                    let keys = Object.keys(required_fields);
+                    for (let r in keys) {
+                        let filterRef = "R-" + this.props.id + "-" + keys[r];
+                        if (this.props.filters[filterRef]) {
+                            console.log(filterRef);
+                            this.props.deleteFilter(filterRef);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     getAccelaTables() {
@@ -57,7 +99,8 @@ class FIELD_Container extends Component {
 }
 
 const mapStateToProps = state => ({
-    fields: state.fields
+    fields: state.fields,
+    filters: state.filters
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -67,6 +110,28 @@ const mapDispatchToProps = dispatch => ({
             type: "fields",
             ref: myRef,
             item: newItem
+        }
+    }),
+    requireFilter: (myRef, newItem) => dispatch({
+        type: "update_item",
+        payload: {
+            type: "filter",
+            ref: myRef,
+            item: newItem
+        }
+    }),
+    addFilter: (newRef, newItem) => dispatch({
+        type: "add_specific_filter",
+        payload: {
+            ref: newRef,
+            item: newItem
+        }
+    }),
+    deleteFilter: (ref) => dispatch({
+        type: "delete_item",
+        payload: {
+            type: "filters",
+            ref: ref
         }
     })
 });

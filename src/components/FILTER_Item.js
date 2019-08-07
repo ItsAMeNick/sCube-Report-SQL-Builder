@@ -56,7 +56,7 @@ class Filter_Container extends Component {
                         {this.getAccelaTables()}
                     </Form.Control></td>
                     <td><Form.Control id={"field_name-"+this.props.id} as="select" onChange={this.handleChange}>
-                        {this.getAccelaFields(this.props.filters[this.props.id].table)}
+                        {this.getAccelaFields(this.props.filters[this.props.id].table_name)}
                     </Form.Control></td>
                 </React.Fragment> }
                 <td><Form.Control id={"comparison-"+this.props.id} as="select" onChange={this.handleChange}>
