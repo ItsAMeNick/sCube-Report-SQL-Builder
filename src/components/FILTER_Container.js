@@ -14,9 +14,19 @@ class Filter_Container extends Component {
 
     generateRows() {
         let rows = [];
-        for (let i in this.props.filters) {
+        let filters = Object.keys(this.props.filters);
+        filters = filters.sort((a, b) => {
+            if (this.props.filters[a].req) {
+                return -1;
+            }
+            if (this.props.filters[b].req) {
+                return 1;
+            }
+            return 0;
+        });
+        for (let i in filters) {
             rows.push(
-                <FilterItem key={this.props.filters[i].key} id={this.props.filters[i].key} req={this.props.filters[i].req}/>
+                <FilterItem key={this.props.filters[filters[i]].key} id={this.props.filters[filters[i]].key} req={this.props.filters[filters[i]].req}/>
             );
         }
         return (
