@@ -35,7 +35,7 @@ class PARAM_Container extends Component {
                         <th>Table</th>
                         <th>Field</th>
                         <th>Is</th>
-                        <th>Parameter</th>
+                        <th>Name of Parameter</th>
                         <th>Data Type</th>
                     </tr>
                 </thead>

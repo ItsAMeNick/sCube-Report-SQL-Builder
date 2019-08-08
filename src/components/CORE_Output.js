@@ -13,11 +13,11 @@ class CORE_Output extends Component {
     generateSQL() {
         let sql_text = "";
         let tables_used = this.getTablesUsed();
-        let shortnames = this.genShortnames();
+        let shortnames = this.genShortnames(tables_used);
 
-        let from_text = this.genFromClause(tables_used);
-        let select_text = this.genSelectClause(tables_used);
-        let where_text = this.genWhereClause(tables_used);
+        let from_text = this.genFromClause(tables_used, shortnames);
+        let select_text = this.genSelectClause(tables_used, shortnames);
+        let where_text = this.genWhereClause(tables_used, shortnames);
 
         sql_text += select_text;
         sql_text += from_text;
@@ -29,25 +29,29 @@ class CORE_Output extends Component {
     getTablesUsed() {
         let tables = [];
 
-        //Get tables from fields
-        let fields = this.props.state.fields;
-        for(let f in fields) {
-            if (!fields[f].table) continue;
-            if (!tables.includes(fields[f].table)) tables.push(fields[f].table);
-        }
+        // //Get tables from fields
+        // let fields = this.props.state.fields;
+        // for(let f in fields) {
+        //     if (!fields[f].table) continue;
+        //     if (!tables.includes(fields[f].table)) tables.push(fields[f].table);
+        // }
+        //
+        // //Get tables from filters
+        // let filters = this.props.state.filters;
+        // for(let f in filters) {
+        //     if (!filters[f].table) continue;
+        //     if (!tables.includes(filters[f].table)) tables.push(filters[f].table);
+        // }
+        //
+        // //Get tables from parameters
+        // let params = this.props.state.parameters;
+        // for(let p in params) {
+        //     if (!params[p].table) continue;
+        //     if (!tables.includes(params[p].table)) tables.push(params[p].table);
+        // }
 
-        //Get tables from filters
-        let filters = this.props.state.filters;
-        for(let f in filters) {
-            if (!filters[f].table) continue;
-            if (!tables.includes(filters[f].table)) tables.push(filters[f].table);
-        }
-
-        //Get tables from parameters
-        let params = this.props.state.parameters;
-        for(let p in params) {
-            if (!params[p].table) continue;
-            if (!tables.includes(params[p].table)) tables.push(params[p].table);
+        for (let g in this.props.state.groups) {
+            tables.push(this.props.state.groups[g].table);
         }
 
         //Prioritize B1PERMIT
@@ -61,18 +65,23 @@ class CORE_Output extends Component {
         return tables;
     }
 
-    genShortnames() {
-
+    genShortnames(tables) {
+        let shortnames = [];
+        for (let t in tables) {
+            shortnames.push(schema[tables[t]].shortname+t);
+        }
+        console.log(shortnames);
+        return shortnames;
     }
 
-    genFromClause(tables) {
+    genFromClause(tables, shortnames) {
         let text = "";
         if (tables.length >= 1) {
-            text += "FROM " + schema[tables[0]].table_name + " " + schema[tables[0]].shortname + "\n";
+            text += "FROM " + schema[tables[0]].table_name + " " + shortnames[0] + "\n";
             text += "\n";
 
             for (let t = 1; t < tables.length; t++) {
-                text += "LEFT JOIN " + schema[tables[t]].table_name + " " + schema[tables[t]].shortname + "\n";
+                text += "LEFT JOIN " + schema[tables[t]].table_name + " " + shortnames[t] + "\n";
 
                 let req_conditions = [];
                 //Add On clause
@@ -88,7 +97,7 @@ class CORE_Output extends Component {
                     } else {
                         text += "AND ";
                     }
-                    text +=  schema[tables[t]].shortname + "." + req_conditions[c] + " = " + schema[tables[0]].shortname + "." + req_conditions[c] + "\n";
+                    text +=  shortnames[t] + "." + req_conditions[c] + " = " + shortnames[0] + "." + req_conditions[c] + "\n";
                 }
 
                 //Add the Filters
@@ -103,9 +112,9 @@ class CORE_Output extends Component {
                         }
 
                         if (filter.req) {
-                            text += schema[filter.table].shortname + "." + schema[filter.table].required[filter.field].table_key;
+                            text += shortnames[t] + "." + schema[filter.table].required[filter.field].table_key;
                         } else {
-                            text += schema[filter.table].shortname + "." + schema[filter.table].data[filter.field].table_key;
+                            text += shortnames[t] + "." + schema[filter.table].data[filter.field].table_key;
                         }
 
                         switch (filter.comparison) {
@@ -132,7 +141,7 @@ class CORE_Output extends Component {
         return text;
     }
 
-    genSelectClause(tables) {
+    genSelectClause(tables, shortnames) {
         let text = "SELECT\n  ";
         let flag = false;
         for (let t in tables) {
@@ -144,7 +153,7 @@ class CORE_Output extends Component {
                     flag = true;
 
                     if (field.field) {
-                        text += schema[tables[t]].shortname + "." +  schema[tables[t]].data[field.field].table_key + " as " + schema[tables[t]].data[field.field].name + "\n";
+                        text += shortnames[t] + "." +  schema[tables[t]].data[field.field].table_key + " as " + schema[tables[t]].data[field.field].name + "\n";
                     }
                 }
             }
@@ -153,7 +162,7 @@ class CORE_Output extends Component {
         return text;
     }
 
-    genWhereClause(tables) {
+    genWhereClause(tables, shortnames) {
         let text = "WHERE\n";
         let flag = false;
         let table = tables[0];
@@ -167,9 +176,9 @@ class CORE_Output extends Component {
                 flag = true;
 
                 if (filter.req) {
-                    text += schema[filter.table].shortname + "." + schema[filter.table].required[filter.field].table_key;
+                    text += shortnames[0] + "." + schema[filter.table].required[filter.field].table_key;
                 } else {
-                    text += schema[filter.table].shortname + "." + schema[filter.table].data[filter.field].table_key;
+                    text += shortnames[0] + "." + schema[filter.table].data[filter.field].table_key;
                 }
 
                 switch (filter.comparison) {
@@ -198,7 +207,7 @@ class CORE_Output extends Component {
                 flag = true;
 
 
-                text += schema[param.table].shortname + "." + schema[param.table].data[param.field].table_key;
+                text += shortnames[0] + "." + schema[param.table].data[param.field].table_key;
 
                 switch (param.comparison) {
                     case "==": {
