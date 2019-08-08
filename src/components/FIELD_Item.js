@@ -40,6 +40,9 @@ class FIELD_Container extends Component {
                                     comparison: "",
                                     value: ""
                                     };
+                    if (keys[r] === "ASI Field Name") {
+                        newFilter.comparison = "==";
+                    }
 
                     if (!this.props.filters[filterRef]) {
                         this.props.addFilter(filterRef, newFilter);

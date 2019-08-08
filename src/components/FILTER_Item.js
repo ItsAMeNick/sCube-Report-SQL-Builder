@@ -61,7 +61,7 @@ class Filter_Container extends Component {
                         {this.getAccelaFields(this.props.filters[this.props.id].table_name)}
                     </Form.Control></td>
                 </React.Fragment> }
-                <td><Form.Control id={"comparison-"+this.props.id} as="select" onChange={this.handleChange}>
+                <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} onChange={this.handleChange}>
                     <option label="" value=""/>
                     <option label="Equal To" value="=="/>
                     <option label="Not Equal To" value="!="/>
