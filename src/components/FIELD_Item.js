@@ -22,6 +22,11 @@ class FIELD_Container extends Component {
 
         //Update this field
         newItem[type] = event.target.value;
+
+        //Clear the field if table is changed
+        if (type === "table") {
+            newItem.field = "";
+        }
         this.props.update(this.props.id, newItem);
 
         //Check the grouping
@@ -63,44 +68,52 @@ class FIELD_Container extends Component {
             }
         }
 
-        //Handle required Filters - Maybe move to another function
-        if (type === "field") {
-            let required_fields = schema[this.props.fields[this.props.id].table].required
-            if (required_fields) {
-                let keys = Object.keys(required_fields);
-                for (let r in keys) {
-                    let filterRef = "R-" + this.props.id + "-" + keys[r];
-                    var newFilter = {
-                                    key: filterRef,
-                                    group: null,
-                                    req: true,
-                                    table: this.props.fields[this.props.id].table,
-                                    field: keys[r],
-                                    comparison: "",
-                                    value: ""
-                                    };
-                    if (keys[r] === "ASI Field Name") {
-                        newFilter.comparison = "==";
-                    }
-
-                    if (!this.props.filters[filterRef]) {
-                        this.props.addFilter(filterRef, newFilter);
-                    } else {
-                        this.props.requireFilter(filterRef, newFilter);
-                    }
-                }
+        //Handle required Filters
+        if (type === "field" || type === "table") {
+            let table = this.props.fields[this.props.id].table;
+            let field;
+            if (type === "field") {
+                field = event.target.value;
             }
-        } else if (type === "table") {
-            //If the table changes remove any required filters associated with this field
-            if (this.props.fields[this.props.id].table) {
-                let required_fields = schema[this.props.fields[this.props.id].table].required
+
+            if (table) {
+                //First delete all the exisitng required filters
+                let required_fields = schema[table].required
                 if (required_fields) {
                     let keys = Object.keys(required_fields);
                     for (let r in keys) {
                         let filterRef = "R-" + this.props.id + "-" + keys[r];
                         if (this.props.filters[filterRef]) {
-                            console.log(filterRef);
                             this.props.deleteFilter(filterRef);
+                        }
+                    }
+                }
+
+                if (field) {
+                    //Then add required fields for this setup
+                    if (required_fields) {
+                        let keys = Object.keys(required_fields);
+                        for (let r in keys) {
+                            let filterRef = "R-" + this.props.id + "-" + keys[r];
+                            let newFilter = {
+                                            key: filterRef,
+                                            group: this.props.fields[this.props.id].group,
+                                            req: true,
+                                            table: this.props.fields[this.props.id].table,
+                                            field: keys[r],
+                                            comparison: "",
+                                            value: ""
+                                            };
+                            if (keys[r] === "ASI Field Name") {
+                                newFilter.comparison = "==";
+                            }
+
+                            if (!this.props.filters[filterRef]) {
+                                this.props.addFilter(filterRef, newFilter);
+                            } else {
+                                console.log(filterRef, newFilter);
+                                this.props.requireFilter(filterRef, newFilter);
+                            }
                         }
                     }
                 }
@@ -170,7 +183,7 @@ const mapDispatchToProps = dispatch => ({
     requireFilter: (myRef, newItem) => dispatch({
         type: "update_item",
         payload: {
-            type: "filter",
+            type: "filters",
             ref: myRef,
             item: newItem
         }

@@ -41,6 +41,20 @@ class Filter_Container extends Component {
         return fields;
     }
 
+    getGroups(table) {
+        //Good God, Get a Group Gurl
+        if (!table) return <option/>
+        let groups = this.props.groups;
+        let keys = Object.keys(groups);
+        keys = keys.filter(k => {
+            return (groups[k].table === table)
+        });
+        keys = keys.map(k => {
+            return <option label={k} value={k} key={k}/>
+        });
+        return keys;
+    }
+
     render() {
         return (
             <tr>
@@ -67,13 +81,22 @@ class Filter_Container extends Component {
                     <option label="Not Equal To" value="!="/>
                 </Form.Control></td>
                 <td><Form.Control id={"value-"+this.props.id} onChange={this.handleChange}/></td>
+                { this.props.req ? <React.Fragment>
+                    <td><Form.Control id={"group-"+this.props.id} readOnly value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
+                    </Form.Control></td>
+                </React.Fragment> : <React.Fragment>
+                    <td><Form.Control id={"group-"+this.props.id} as="select" value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
+                        {this.getGroups(this.props.filters[this.props.id].table)}
+                    </Form.Control></td>
+                </React.Fragment> }
             </tr>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    filters: state.filters
+    filters: state.filters,
+    groups: state.groups
 });
 
 const mapDispatchToProps = dispatch => ({

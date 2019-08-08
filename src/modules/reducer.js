@@ -23,7 +23,7 @@ const initialState = {
     filters: {
         // "1": {
         //     key: "1",
-        //     group: null,
+        //     group: "",
         //     req: false,
         //     table: "",
         //     field: "",
@@ -34,7 +34,7 @@ const initialState = {
     parameters: {
         // "1": {
         //     key: "1",
-        //     group: null,
+        //     group: "",
         //     parameter_name: "",
         //     data_type: "",
         //     table: "",
@@ -119,7 +119,7 @@ const sCubeReducer = (state = initialState, action) => {
                 newState.filters[m] =
                     {
                         key: m,
-                        group: null,
+                        group: "",
                         req: false,
                         table: "",
                         field: "",
@@ -138,7 +138,7 @@ const sCubeReducer = (state = initialState, action) => {
                 newState.parameters[m] =
                     {
                         key: m,
-                        group: null,
+                        group: "",
                         parameter_name: "",
                         data_type: "",
                         table: "",
