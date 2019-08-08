@@ -6,6 +6,9 @@ import "./Container.css";
 
 import Form from "react-bootstrap/Form";
 
+import accela_schema from "./accela_schema.js";
+let schema = accela_schema.accela_data;
+
 class PARAM_Item extends Component {
     constructor(props) {
         super(props);
@@ -21,6 +24,23 @@ class PARAM_Item extends Component {
         this.props.update(this.props.id, newItem);
     }
 
+    getAccelaTables() {
+        let tables = [""].concat(Object.keys(schema));
+        tables = tables.map(t => {
+            return <option key={t} label={t} value={t}/>
+        });
+        return tables;
+    }
+
+    getAccelaFields(table) {
+        if (!table) return <option/>;
+        let fields = [""].concat(Object.keys(schema[table].data));
+        fields = fields.map(f => {
+            return <option key={f} label={f} value={f}/>
+        });
+        return fields;
+    }
+
     render() {
         return (
             <tr>
@@ -32,7 +52,13 @@ class PARAM_Item extends Component {
                     <option value="Number" label="Number"/>
                     <option value="Date" label="Date"/>
                 </Form.Control></td>
-                <td><Form.Control id={"report_param-"+this.props.id} readOnly></Form.Control></td>
+                <td>Is</td>
+                <td><Form.Control id={"table_param-"+this.props.id} as="select" onChange={this.handleChange}>
+                    {this.getAccelaTables()}
+                </Form.Control></td>
+                <td><Form.Control id={"field_param-"+this.props.id} as="select" onChange={this.handleChange}>
+                    {this.getAccelaFields(this.props.parameters[this.props.id].table_param)}
+                </Form.Control></td>
             </tr>
         );
     }

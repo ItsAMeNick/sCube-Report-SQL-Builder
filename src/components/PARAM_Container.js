@@ -34,7 +34,9 @@ class PARAM_Container extends Component {
                         <td>#</td>
                         <th>Parameter</th>
                         <th>Data Type</th>
-                        <th>Report Variable Name</th>
+                        <td></td>
+                        <th>Table</th>
+                        <th>Field</th>
                     </tr>
                 </thead>
                 <tbody>

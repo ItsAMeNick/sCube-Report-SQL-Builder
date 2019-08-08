@@ -15,9 +15,11 @@ class CORE_Output extends Component {
         let tables_used = this.getTablesUsed();
         let from_text = this.genFromClause(tables_used);
         let select_text = this.genSelectClause(tables_used);
+        let where_text = this.genWhereClause(tables_used);
 
         sql_text += select_text;
         sql_text += from_text;
+        sql_text += where_text;
 
         return sql_text;
     }
@@ -67,8 +69,6 @@ class CORE_Output extends Component {
                     }
                 }
 
-                console.log(req_conditions);
-
                 for (let c in req_conditions) {
                     if (c === "0") {
                         text += "ON ";
@@ -82,7 +82,6 @@ class CORE_Output extends Component {
                 let filters = this.props.state.filters;
                 for (let f in filters) {
                     let filter = filters[f];
-                    console.log(filter);
                     if (filter.table_name && (filter.table_name === tables[t]) && filter.field_name) {
                         if (req_conditions.length <=1) {
                             text += "ON ";
@@ -110,7 +109,6 @@ class CORE_Output extends Component {
                         text += "'" + filter.value + "'";
 
                         text += "\n";
-                        console.log(f);
                     }
                 }
 
@@ -122,7 +120,7 @@ class CORE_Output extends Component {
     }
 
     genSelectClause(tables) {
-        let text = "SELECT\n";
+        let text = "SELECT\n  ";
         let flag = false;
         for (let t in tables) {
             for (let f in this.props.state.fields) {
@@ -137,8 +135,76 @@ class CORE_Output extends Component {
                     }
                 }
             }
-            text += "\n";
         }
+        text += "\n";
+        return text;
+    }
+
+    genWhereClause(tables) {
+        let text = "WHERE\n";
+        let flag = false;
+        let table = tables[0];
+
+        //Check Filters
+        for (let f in this.props.state.filters) {
+            let filter = this.props.state.filters[f];
+            if (!filter.table_name || !filter.field_name) continue;
+            if (filter.table_name === table) {
+                if (flag) text += "AND ";
+                flag = true;
+
+                if (filter.req) {
+                    text += schema[filter.table_name].shortname + "." + schema[filter.table_name].required[filter.field_name].table_key;
+                } else {
+                    text += schema[filter.table_name].shortname + "." + schema[filter.table_name].data[filter.field_name].table_key;
+                }
+
+                switch (filter.comparison) {
+                    case "==": {
+                        text += " = ";
+                        break;
+                    }
+                    case "!=": {
+                        text += " != ";
+                        break;
+                    }
+                    default: break;
+                }
+                text += "'" + filter.value + "'\n";
+            }
+        }
+
+        //Check Parameters
+        for (let p in this.props.state.parameters) {
+            let param = this.props.state.parameters[p];
+            if (!param.table_param || !param.field_param) continue;
+            console.log(param.table_param)
+            if (param.table_param === table) {
+                console.log("Param");
+                if (flag) text += "AND ";
+                flag = true;
+
+
+                text += schema[param.table_param].shortname + "." + schema[param.table_param].data[param.field_param].table_key;
+
+                text += " = ";
+
+                switch (param.data_type) {
+                    case "Text": {
+                        break;
+                    }
+                    case "Number": {
+                        break;
+                    }
+                    case "Date": {
+                        break;
+                    }
+                    default: break;
+                }
+                text += "{@" + param.parameter_name + "}\n";
+            }
+        }
+
         return text;
     }
 
