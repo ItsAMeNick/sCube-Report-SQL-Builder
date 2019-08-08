@@ -45,13 +45,13 @@ class PARAM_Item extends Component {
         return (
             <tr>
                 <td>{this.props.id}</td>
-                <td><Form.Control id={"table_param-"+this.props.id} as="select" onChange={this.handleChange}>
+                <td><Form.Control id={"table-param-"+this.props.id} as="select" onChange={this.handleChange}>
                     {this.getAccelaTables()}
                 </Form.Control></td>
-                <td><Form.Control id={"field_param-"+this.props.id} as="select" onChange={this.handleChange}>
-                    {this.getAccelaFields(this.props.parameters[this.props.id].table_param)}
+                <td><Form.Control id={"field-param-"+this.props.id} as="select" onChange={this.handleChange}>
+                    {this.getAccelaFields(this.props.parameters[this.props.id].table)}
                 </Form.Control></td>
-                <td><Form.Control id={"comparison_param-"+this.props.id} as="select" value={this.props.parameters[this.props.id].comparison_param} onChange={this.handleChange}>
+                <td><Form.Control id={"comparison-param-"+this.props.id} as="select" value={this.props.parameters[this.props.id].comparison} onChange={this.handleChange}>
                     <option label="" value=""/>
                     <option label="Equal To" value="=="/>
                     <option label="Not Equal To" value="!="/>

@@ -31,12 +31,11 @@ class FIELD_Container extends Component {
                 let keys = Object.keys(required_fields);
                 for (let r in keys) {
                     let filterRef = "R-" + this.props.id + "-" + keys[r];
-                    console.log(required_fields[keys[r]]);
                     var newFilter = {
                                     key: filterRef,
                                     req: true,
-                                    table_name: this.props.fields[this.props.id].table,
-                                    field_name: keys[r],
+                                    table: this.props.fields[this.props.id].table,
+                                    field: keys[r],
                                     comparison: "",
                                     value: ""
                                     };

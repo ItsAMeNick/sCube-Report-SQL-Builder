@@ -14,8 +14,8 @@ const initialState = {
         // "1": {
         //     key: "1",
         //     req: false,
-        //     table_name: "",
-        //     field_name: "",
+        //     table: "",
+        //     field: "",
         //     comparison: "",
         //     value: ""
         // }
@@ -25,9 +25,9 @@ const initialState = {
         //     key: "1",
         //     parameter_name: "",
         //     data_type: "",
-        //     table_param: "",
-        //     field_param: "",
-        //     comparison_param: ""
+        //     table: "",
+        //     field: "",
+        //     comparison: ""
         // }
     }
 };
@@ -76,8 +76,8 @@ const sCubeReducer = (state = initialState, action) => {
                     {
                         key: m,
                         req: false,
-                        table_name: "",
-                        field_name: "",
+                        table: "",
+                        field: "",
                         comparison: "",
                         value: ""
                     }
@@ -95,9 +95,9 @@ const sCubeReducer = (state = initialState, action) => {
                         key: m,
                         parameter_name: "",
                         data_type: "",
-                        table_param: "",
-                        field_param: "",
-                        comparison_param: ""
+                        table: "",
+                        field: "",
+                        comparison: ""
                     }
                 break;
             }

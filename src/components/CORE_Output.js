@@ -13,6 +13,8 @@ class CORE_Output extends Component {
     generateSQL() {
         let sql_text = "";
         let tables_used = this.getTablesUsed();
+        let shortnames = this.genShortnames();
+
         let from_text = this.genFromClause(tables_used);
         let select_text = this.genSelectClause(tables_used);
         let where_text = this.genWhereClause(tables_used);
@@ -37,8 +39,15 @@ class CORE_Output extends Component {
         //Get tables from filters
         let filters = this.props.state.filters;
         for(let f in filters) {
-            if (!filters[f].table_name) continue;
-            if (!tables.includes(filters[f].table_name)) tables.push(filters[f].table_name);
+            if (!filters[f].table) continue;
+            if (!tables.includes(filters[f].table)) tables.push(filters[f].table);
+        }
+
+        //Get tables from parameters
+        let params = this.props.state.parameters;
+        for(let p in params) {
+            if (!params[p].table) continue;
+            if (!tables.includes(params[p].table)) tables.push(params[p].table);
         }
 
         //Prioritize B1PERMIT
@@ -50,6 +59,10 @@ class CORE_Output extends Component {
         })
 
         return tables;
+    }
+
+    genShortnames() {
+
     }
 
     genFromClause(tables) {
@@ -82,7 +95,7 @@ class CORE_Output extends Component {
                 let filters = this.props.state.filters;
                 for (let f in filters) {
                     let filter = filters[f];
-                    if (filter.table_name && (filter.table_name === tables[t]) && filter.field_name) {
+                    if (filter.table && (filter.table === tables[t]) && filter.field) {
                         if (req_conditions.length <=1) {
                             text += "ON ";
                         } else {
@@ -90,9 +103,9 @@ class CORE_Output extends Component {
                         }
 
                         if (filter.req) {
-                            text += schema[filter.table_name].shortname + "." + schema[filter.table_name].required[filter.field_name].table_key;
+                            text += schema[filter.table].shortname + "." + schema[filter.table].required[filter.field].table_key;
                         } else {
-                            text += schema[filter.table_name].shortname + "." + schema[filter.table_name].data[filter.field_name].table_key;
+                            text += schema[filter.table].shortname + "." + schema[filter.table].data[filter.field].table_key;
                         }
 
                         switch (filter.comparison) {
@@ -148,15 +161,15 @@ class CORE_Output extends Component {
         //Check Filters
         for (let f in this.props.state.filters) {
             let filter = this.props.state.filters[f];
-            if (!filter.table_name || !filter.field_name) continue;
-            if (filter.table_name === table) {
+            if (!filter.table || !filter.field) continue;
+            if (filter.table === table) {
                 if (flag) text += "AND ";
                 flag = true;
 
                 if (filter.req) {
-                    text += schema[filter.table_name].shortname + "." + schema[filter.table_name].required[filter.field_name].table_key;
+                    text += schema[filter.table].shortname + "." + schema[filter.table].required[filter.field].table_key;
                 } else {
-                    text += schema[filter.table_name].shortname + "." + schema[filter.table_name].data[filter.field_name].table_key;
+                    text += schema[filter.table].shortname + "." + schema[filter.table].data[filter.field].table_key;
                 }
 
                 switch (filter.comparison) {
@@ -177,17 +190,27 @@ class CORE_Output extends Component {
         //Check Parameters
         for (let p in this.props.state.parameters) {
             let param = this.props.state.parameters[p];
-            if (!param.table_param || !param.field_param) continue;
-            console.log(param.table_param)
-            if (param.table_param === table) {
+            if (!param.table || !param.field) continue;
+            console.log(param.table)
+            if (param.table === table) {
                 console.log("Param");
                 if (flag) text += "AND ";
                 flag = true;
 
 
-                text += schema[param.table_param].shortname + "." + schema[param.table_param].data[param.field_param].table_key;
+                text += schema[param.table].shortname + "." + schema[param.table].data[param.field].table_key;
 
-                text += " = ";
+                switch (param.comparison) {
+                    case "==": {
+                        text += " = ";
+                        break;
+                    }
+                    case "!=": {
+                        text += " != ";
+                        break;
+                    }
+                    default: break;
+                }
 
                 switch (param.data_type) {
                     case "Text": {
