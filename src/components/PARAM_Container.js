@@ -32,11 +32,11 @@ class PARAM_Container extends Component {
                 <thead>
                     <tr>
                         <td>#</td>
-                        <th>Parameter</th>
-                        <th>Data Type</th>
-                        <td></td>
                         <th>Table</th>
                         <th>Field</th>
+                        <th>Is</th>
+                        <th>Parameter</th>
+                        <th>Data Type</th>
                     </tr>
                 </thead>
                 <tbody>

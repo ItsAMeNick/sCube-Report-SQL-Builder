@@ -212,7 +212,7 @@ class CORE_Output extends Component {
         return (
         <div>
             <hr/>
-            <textarea rows="20" style={{width: "100%", fontFamily: "\"Courier New\", Courier, monospace"}} value={this.generateSQL()} readOnly={true} />
+            <textarea rows="20" style={{width: "100%", fontFamily: "\"Courier New\", Courier, monospace"}} value={this.generateSQL()} readOnly={true}/>
         </div>
         );
     }

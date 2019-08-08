@@ -26,7 +26,8 @@ const initialState = {
         //     parameter_name: "",
         //     data_type: "",
         //     table_param: "",
-        //     field_param: ""
+        //     field_param: "",
+        //     comparison_param: ""
         // }
     }
 };
@@ -95,7 +96,8 @@ const sCubeReducer = (state = initialState, action) => {
                         parameter_name: "",
                         data_type: "",
                         table_param: "",
-                        field_param: ""
+                        field_param: "",
+                        comparison_param: ""
                     }
                 break;
             }
