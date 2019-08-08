@@ -2,9 +2,19 @@ import _ from "lodash";
 
 const initialState = {
     mode: null,
+    groups: {
+        // "1": {
+        //     key: 1,
+        //     table: "",
+        //     fields: new Set([]),
+        //     filters: new Set([]),
+        //     parameters: new Set([])
+        // }
+    },
     fields: {
         "1": {
             key: "1",
+            group: "",
             table: "",
             field: "",
             report: ""
@@ -13,6 +23,7 @@ const initialState = {
     filters: {
         // "1": {
         //     key: "1",
+        //     group: null,
         //     req: false,
         //     table: "",
         //     field: "",
@@ -23,6 +34,7 @@ const initialState = {
     parameters: {
         // "1": {
         //     key: "1",
+        //     group: null,
         //     parameter_name: "",
         //     data_type: "",
         //     table: "",
@@ -45,6 +57,35 @@ const sCubeReducer = (state = initialState, action) => {
         return newState;
     }
 
+    case "add_group": {
+        let newState = _.cloneDeep(state);
+        let codes = Object.keys(state.groups);
+        let m = 0;
+        for (let c in codes) {
+            m = Math.max(m,state.groups[codes[c]].key);
+        }
+        m+=1;
+        newState.groups[m] =
+            {
+                key: m,
+                table: action.payload.table,
+                fields: new Set([]),
+                filters: new Set([]),
+                parameters: new Set([])
+            }
+        //Add my creator
+        newState.groups[m][action.payload.type].add(action.payload.ref);
+        //Update my creator
+        newState[action.payload.type][action.payload.ref].group = m;
+        return newState;
+    }
+
+    case "add_to_group": {
+        let newState = _.cloneDeep(state);
+        newState.groups[action.payload.group][action.payload.type].add(action.payload.ref);
+        return newState;
+    }
+
     case "add_item": {
         let newState = _.cloneDeep(state);
         switch (action.payload.type) {
@@ -55,9 +96,12 @@ const sCubeReducer = (state = initialState, action) => {
                     m = Math.max(m,state.fields[codes[c]].key);
                 }
                 m+=1;
+                let g = null;
+                if (newState.fields[m-1]) g = newState.fields[m-1].group;
                 newState.fields[m] =
                     {
                         key: m,
+                        group: g,
                         table: "",
                         field: "",
                         report: ""
@@ -75,6 +119,7 @@ const sCubeReducer = (state = initialState, action) => {
                 newState.filters[m] =
                     {
                         key: m,
+                        group: null,
                         req: false,
                         table: "",
                         field: "",
@@ -93,6 +138,7 @@ const sCubeReducer = (state = initialState, action) => {
                 newState.parameters[m] =
                     {
                         key: m,
+                        group: null,
                         parameter_name: "",
                         data_type: "",
                         table: "",
