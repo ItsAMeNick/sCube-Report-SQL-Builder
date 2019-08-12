@@ -46,7 +46,7 @@ class Filter_Container extends Component {
                         <th>Field</th>
                         <th>Is</th>
                         <th>Value</th>
-                        <th>Grouping (Debug)</th>
+                        <th>Grouping (WIP)</th>
                     </tr>
                 </thead>
                 <tbody>

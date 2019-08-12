@@ -41,6 +41,20 @@ class PARAM_Item extends Component {
         return fields;
     }
 
+    getGroups(table) {
+        // //Good God, Get a Group Gurl
+        // if (!table) return <option/>
+        // let groups = this.props.groups;
+        // let keys = Object.keys(groups);
+        // keys = keys.filter(k => {
+        //     return (groups[k].table === table)
+        // });
+        // keys = keys.map(k => {
+        //     return <option label={k} value={k} key={k}/>
+        // });
+        // return keys;
+    }
+
     render() {
         return (
             <tr>
@@ -62,6 +76,9 @@ class PARAM_Item extends Component {
                     <option value="Text" label="Text"/>
                     <option value="Number" label="Number"/>
                     <option value="Date" label="Date"/>
+                </Form.Control></td>
+                <td><Form.Control id={"group-"+this.props.id} as="select" value={this.props.parameters[this.props.id].group} onChange={this.handleChange}>
+                    {this.getGroups(this.props.parameters[this.props.id].table)}
                 </Form.Control></td>
             </tr>
         );

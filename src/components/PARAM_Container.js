@@ -37,6 +37,7 @@ class PARAM_Container extends Component {
                         <th>Is</th>
                         <th>Name of Parameter</th>
                         <th>Data Type</th>
+                        <th>Grouping (WIP)</th>
                     </tr>
                 </thead>
                 <tbody>
