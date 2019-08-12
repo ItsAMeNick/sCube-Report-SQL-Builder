@@ -28,6 +28,10 @@ class FIELD_Filter extends Component {
 
         newItem[type] = event.target.value;
         this.props.update(this.props.id, newItem);
+
+        if (type === "value") {
+            this.props.updateReportName(this.props.id.split("-")[1], event.target.value);
+        }
     }
 
     getAccelaTables() {
@@ -64,7 +68,7 @@ class FIELD_Filter extends Component {
 
     render() {
         return (
-            <tr style={{"backgroundColor": "#C2DFFF"}}>
+            <tr style={{"backgroundColor": "#FBBBB9"}}>
                 <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
                 <td>
                     <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
@@ -100,6 +104,13 @@ const mapDispatchToProps = dispatch => ({
             type: "filters",
             group: group,
             ref: myRef
+        }
+    }),
+    updateReportName: (myRef, myBase) => dispatch({
+        type: "update_report_name",
+        payload: {
+            ref: myRef,
+            base: myBase
         }
     })
 });

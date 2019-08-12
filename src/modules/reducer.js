@@ -14,7 +14,7 @@ const initialState = {
     },
     fields: {
         1: {
-            key: "1",
+            key: 1,
             group: "",
             table: "",
             field: "",
@@ -65,6 +65,10 @@ const sCubeReducer = (state = initialState, action) => {
     case "update_report_name": {
         let newState = _.cloneDeep(state);
         switch (newState.fields[action.payload.ref].table) {
+            case "ASI Field": {
+                newState.fields[action.payload.ref].report = "ASI_" + action.payload.base.replace(/\W/g, '_');
+                break;
+            }
             default: {
                 for (let f in newState.fields) {
                     if (Object.keys(newState.fields).length === 1) {
@@ -78,6 +82,7 @@ const sCubeReducer = (state = initialState, action) => {
                         newState.fields[action.payload.ref].report = action.payload.base;
                     }
                 }
+                break;
             }
         }
         return newState;

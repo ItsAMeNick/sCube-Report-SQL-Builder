@@ -169,7 +169,7 @@ class CORE_Output extends Component {
                     flag = true;
 
                     if (field.field) {
-                        text += tables[i].shortname + "." +  schema[tables[i].table].data[field.field].table_key + " as " + field.report + "_" + tables[i].shortname + "\n";
+                        text += tables[i].shortname + "." +  schema[tables[i].table].data[field.field].table_key + " as " + field.report + "\n";
                     }
                 }
             }
