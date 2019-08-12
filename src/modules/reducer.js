@@ -62,6 +62,27 @@ const sCubeReducer = (state = initialState, action) => {
         return newState;
     }
 
+    case "update_report_name": {
+        let newState = _.cloneDeep(state);
+        switch (newState.fields[action.payload.ref].table) {
+            default: {
+                for (let f in newState.fields) {
+                    if (Object.keys(newState.fields).length === 1) {
+                        newState.fields[action.payload.ref].report = action.payload.base;
+                        continue;
+                    }
+                    if (f === action.payload.ref) continue;
+                    if ((newState.fields[f].field === newState.fields[action.payload.ref].field) && (newState.fields[f].table === newState.fields[action.payload.ref].table)) {
+                        newState.fields[action.payload.ref].report = "DUPE!";
+                    } else {
+                        newState.fields[action.payload.ref].report = action.payload.base;
+                    }
+                }
+            }
+        }
+        return newState;
+    }
+
     case "add_group": {
         let newState = _.cloneDeep(state);
         let codes = Object.keys(state.groups);

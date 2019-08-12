@@ -109,7 +109,46 @@ class CORE_Output extends Component {
 
                 //Add the Parameters
                 let parameters = Array.from(group.parameters);
-                console.log(parameters);
+                for (let p in parameters) {
+                    let param = this.props.state.parameters[parameters[p]];
+                    if (param.table && param.field) {
+                        if (!flag) {
+                            text += "ON  ";
+                            flag = true;
+                        } else {
+                            text += "AND ";
+                        }
+
+                        text += tables[i].shortname + "." + schema[param.table].data[param.field].table_key;
+
+                        switch (param.comparison) {
+                            case "==": {
+                                text += " = ";
+                                break;
+                            }
+                            case "!=": {
+                                text += " != ";
+                                break;
+                            }
+                            default: break;
+                        }
+
+                        switch (param.data_type) {
+                            case "Text": {
+                                break;
+                            }
+                            case "Number": {
+                                break;
+                            }
+                            case "Date": {
+                                break;
+                            }
+                            default: break;
+                        }
+
+                        text += "{@" + param.parameter_name.replace(/\W/g, '_') + "}\n";
+                    }
+                }
             }
             text += "\n";
         }
@@ -130,7 +169,7 @@ class CORE_Output extends Component {
                     flag = true;
 
                     if (field.field) {
-                        text += tables[i].shortname + "." +  schema[tables[i].table].data[field.field].table_key + " as " + schema[tables[i].table].data[field.field].name + "_" + tables[i].shortname + "\n";
+                        text += tables[i].shortname + "." +  schema[tables[i].table].data[field.field].table_key + " as " + field.report + "_" + tables[i].shortname + "\n";
                     }
                 }
             }
@@ -221,7 +260,7 @@ class CORE_Output extends Component {
                     default: break;
                 }
 
-                text += "{@" + param.parameter_name + "}\n";
+                text += "{@" + param.parameter_name.replace(/\W/g, '_') + "}\n";
 
                 text += "\n";
             }

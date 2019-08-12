@@ -122,6 +122,15 @@ class FIELD_Container extends Component {
                 }
             }
         }
+        //Do this every time you update
+        if (type === "field") {
+            let table, field;
+            table = this.props.fields[this.props.id].table;
+            field = event.target.value;
+            if (table && field) {
+                this.props.updateReportName(this.props.id, schema[table].data[field].name);
+            }
+        }
     }
 
     isGroupable(table) {
@@ -161,7 +170,7 @@ class FIELD_Container extends Component {
                 <td><Form.Control id={"field-"+this.props.id} as="select" onChange={this.handleChange}>
                     {this.getAccelaFields(this.props.fields[this.props.id].table)}
                 </Form.Control></td>
-                <td><Form.Control id={"report-"+this.props.id} readOnly value={this.props.fields[this.props.id].report_name}></Form.Control></td>
+                <td><Form.Control id={"report-"+this.props.id} readOnly value={this.props.fields[this.props.id].report}></Form.Control></td>
                 <td><Form.Control id={"group-"+this.props.id} readOnly value={this.props.fields[this.props.id].group}></Form.Control></td>
             </tr>
         );
@@ -219,6 +228,13 @@ const mapDispatchToProps = dispatch => ({
             type: type,
             group: group,
             ref: myRef
+        }
+    }),
+    updateReportName: (myRef, myBase) => dispatch({
+        type: "update_report_name",
+        payload: {
+            ref: myRef,
+            base: myBase
         }
     })
 });
