@@ -60,6 +60,8 @@ class FIELD_Container extends Component {
                         }
                         //If you couldnt be placed in a group then actually make one
                         if (!found_group) this.props.addGroup(event.target.value, this.props.id);
+                    } else {
+                        this.props.add2Group(this.props.fields[this.props.id].group, this.props.id);
                     }
                 } else {
                     this.props.addGroup(event.target.value, this.props.id);

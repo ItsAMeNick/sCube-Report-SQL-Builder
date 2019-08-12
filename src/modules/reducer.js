@@ -83,6 +83,7 @@ const sCubeReducer = (state = initialState, action) => {
     case "add_to_group": {
         let newState = _.cloneDeep(state);
         newState.groups[action.payload.group][action.payload.type].add(action.payload.ref);
+        newState[action.payload.type][action.payload.ref].group = action.payload.group;
         return newState;
     }
 
