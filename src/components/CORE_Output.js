@@ -14,12 +14,12 @@ class CORE_Output extends Component {
         let sql_text = "";
         let shortnames = this.genShortnames();
 
-        // let from_text = this.genFromClause(shortnames);
         let select_text = this.genSelectClause(shortnames);
+        let from_text = this.genFromClause(shortnames);
         // let where_text = this.genWhereClause(shortnames);
         //
         sql_text += select_text;
-        // sql_text += from_text;
+        sql_text += from_text;
         // sql_text += where_text;
 
         return sql_text;
@@ -47,32 +47,39 @@ class CORE_Output extends Component {
         return shortnames;
     }
 
-    // genFromClause(tables, shortnames) {
-    //     let text = "";
-    //     if (tables.length >= 1) {
-    //         text += "FROM " + schema[tables[0]].table_name + " " + shortnames[0] + "\n";
-    //         text += "\n";
-    //
-    //         for (let t = 1; t < tables.length; t++) {
-    //             text += "LEFT JOIN " + schema[tables[t]].table_name + " " + shortnames[t] + "\n";
-    //
-    //             let req_conditions = [];
-    //             //Add On clause
-    //             for (let i in schema[tables[t]].join_clause) {
-    //                 if (schema[tables[0]].join_clause.includes(schema[tables[t]].join_clause[i])) {
-    //                     req_conditions.push(schema[tables[t]].join_clause[i]);
-    //                 }
-    //             }
-    //
-    //             for (let c in req_conditions) {
-    //                 if (c === "0") {
-    //                     text += "ON ";
-    //                 } else {
-    //                     text += "AND ";
-    //                 }
-    //                 text +=  shortnames[t] + "." + req_conditions[c] + " = " + shortnames[0] + "." + req_conditions[c] + "\n";
-    //             }
-    //
+    genFromClause(tables) {
+        let text = "";
+        let from_table = null;
+        for (let i in tables) {
+            let group = this.props.state.groups[tables[i].group];
+            if (!from_table) {
+                text += "FROM " + schema[tables[i].table].table_name + " " + tables[i].shortname + "\n";
+                from_table = i;
+            } else {
+                text += "LEFT JOIN " + schema[tables[i].table].table_name + " " + tables[i].shortname + "\n";
+
+                //Add Avaliable Joins
+                let flag = false;
+                for (let jc in schema[tables[from_table].table].join_clause) {
+                    if (schema[tables[from_table].table].join_clause.includes(schema[tables[i].table].join_clause[jc])) {
+                        if (!flag) {
+                            text += "ON  ";
+                            flag = true;
+                        } else {
+                            text += "AND ";
+                        }
+                        text +=  tables[i].shortname + "." + schema[tables[i].table].join_clause[jc] + " = " + tables[from_table].shortname + "." + schema[tables[i].table].join_clause[jc] + "\n";
+                    }
+                }
+
+                let filters = Array.from(group.filters);
+                console.log(filters);
+
+                let parameters = Array.from(group.parameters);
+                console.log(parameters);
+            }
+            text += "\n";
+        }
     //             //Add the Filters
     //             let filters = this.props.state.filters;
     //             for (let f in filters) {
@@ -111,18 +118,18 @@ class CORE_Output extends Component {
     //             text += "\n";
     //         }
     //     }
-    //     return text;
-    // }
+        return text;
+    }
 
     genSelectClause(tables) {
         let text = "SELECT\n  ";
         let flag = false;
         for (let i in tables) {
             let group = this.props.state.groups[tables[i].group];
-            group.fields.forEach(f => {
-                let field = this.props.state.fields[f];
-                console.log(field);
-                if (!field.table || !field.field) return;
+            let fields = Array.from(group.fields);
+            for (let f in fields) {
+                let field = this.props.state.fields[fields[f]];
+                if (!field.table || !field.field) break;
                 if (field.table === tables[i].table) {
                     if (flag) text += ", ";
                     flag = true;
@@ -131,7 +138,7 @@ class CORE_Output extends Component {
                         text += tables[i].shortname + "." +  schema[tables[i].table].data[field.field].table_key + " as " + schema[tables[i].table].data[field.field].name + "_" + tables[i].shortname + "\n";
                     }
                 }
-            })
+            }
         }
         text += "\n";
         return text;

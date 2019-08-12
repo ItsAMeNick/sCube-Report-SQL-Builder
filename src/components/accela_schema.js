@@ -3,7 +3,7 @@ var accela_data = {
         table_name: "B1PERMIT",
         shortname: "b1",
         parent: null,
-        join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_I2", "B1_PER_ID3"],
         required: null,
         data: {
             "Record ID": {
@@ -32,7 +32,7 @@ var accela_data = {
         table_name: "B3ADDRES",
         shortname: "addres",
         parent: null,
-        join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_I2", "B1_PER_ID3"],
         required: null,
         data: {
             "Street Number": {
@@ -76,7 +76,7 @@ var accela_data = {
         table_name: "BCHCKBOX",
         shortname: "asi",
         parent: null,
-        join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_I2", "B1_PER_ID3"],
         required: {
             "ASI Field Name": {
                 table_key: "B1_CHECKBOX_DESC",
@@ -94,7 +94,7 @@ var accela_data = {
         table_name: "ACCELA TABLE NAME",
         shortname: "short",
         parent: "My Parent's user friendly name, who would you need to join through",
-        join_clause: ["SERV_PROV_CODE", "B1_PER_ID", "B1_PER_I2", "B1_PER_ID3"],
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_I2", "B1_PER_ID3"],
         required: {
             "User friendly field name": {
                 table_key: "table key",
