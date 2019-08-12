@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 import "./Container.css";
 
-import FieldItem from "./FIELD_Item.js"
+import FieldItem from "./FIELD_Item.js";
+import Filter from "./FIELD_Filter.js";
 import Table from "react-bootstrap/Table";
 
 class FIELD_Container extends Component {
@@ -18,6 +19,14 @@ class FIELD_Container extends Component {
             rows.push(
                 <FieldItem key={i} id={i}/>
             );
+            //Add Required Filters
+            for (let f in this.props.filters) {
+                if (typeof this.props.filters[f].key !== "string") continue;
+                let filter_id = this.props.filters[f].key.split("-");
+                if (filter_id[1] === i) {
+                    rows.push(<Filter key={this.props.filters[f].key} id={this.props.filters[f].key} req={true}/>)
+                }
+            }
         }
         return (
             rows
@@ -49,7 +58,8 @@ class FIELD_Container extends Component {
 }
 
 const mapStateToProps = state => ({
-    fields: state.fields
+    fields: state.fields,
+    filters: state.filters,
 });
 
 const mapDispatchToProps = dispatch => ({

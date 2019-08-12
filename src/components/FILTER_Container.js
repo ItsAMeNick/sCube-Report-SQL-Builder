@@ -6,7 +6,7 @@ import "./Container.css";
 import FilterItem from "./FILTER_Item.js";
 import Table from "react-bootstrap/Table";
 
-class Filter_Container extends Component {
+class FILTER_Container extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -25,9 +25,11 @@ class Filter_Container extends Component {
             return 0;
         });
         for (let i in filters) {
-            rows.push(
-                <FilterItem key={this.props.filters[filters[i]].key} id={this.props.filters[filters[i]].key} req={this.props.filters[filters[i]].req}/>
-            );
+            if (!this.props.filters[filters[i]].req) {
+                rows.push(
+                    <FilterItem key={this.props.filters[filters[i]].key} id={this.props.filters[filters[i]].key} req={this.props.filters[filters[i]].req}/>
+                );
+            }
         }
         return (
             rows
@@ -70,4 +72,4 @@ const mapDispatchToProps = dispatch => ({
     })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter_Container);
+export default connect(mapStateToProps, mapDispatchToProps)(FILTER_Container);

@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 import accela_schema from "./accela_schema.js";
 let schema = accela_schema.accela_data;
 
-class FILTER_Item extends Component {
+class FIELD_Filter extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -64,38 +64,17 @@ class FILTER_Item extends Component {
 
     render() {
         return (
-            <tr>
-                { this.props.req ? <React.Fragment>
-                    <td>{this.props.id.split("-")[0] + "-" + this.props.id.split("-")[1]}</td>
-                    <td>
-                        <Form.Control id={"table-name-"+this.props.id} value={this.props.filters[this.props.id].table} readOnly onChange={this.handleChange}/>
-                    </td>
-                    <td>
-                        <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
-                    </td>
-                </React.Fragment> : <React.Fragment>
-                    <td>{this.props.id}</td>
-                    <td><Form.Control id={"table-name-"+this.props.id} as="select" onChange={this.handleChange}>
-                        {this.getAccelaTables()}
-                    </Form.Control></td>
-                    <td><Form.Control id={"field-name-"+this.props.id} as="select" onChange={this.handleChange}>
-                        {this.getAccelaFields(this.props.filters[this.props.id].table)}
-                    </Form.Control></td>
-                </React.Fragment> }
+            <tr style={{"backgroundColor": "#C2DFFF"}}>
+                <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
+                <td>
+                    <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
+                </td>
                 <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} onChange={this.handleChange}>
                     <option label="" value=""/>
                     <option label="Equal To" value="=="/>
                     <option label="Not Equal To" value="!="/>
                 </Form.Control></td>
-                <td><Form.Control id={"value-"+this.props.id} value={this.props.filters[this.props.id].value} onChange={this.handleChange}/></td>
-                { this.props.req ? <React.Fragment>
-                    <td><Form.Control id={"group-"+this.props.id} readOnly value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
-                    </Form.Control></td>
-                </React.Fragment> : <React.Fragment>
-                    <td><Form.Control id={"group-"+this.props.id} as="select" value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
-                        {this.getGroups(this.props.filters[this.props.id].table)}
-                    </Form.Control></td>
-                </React.Fragment> }
+                <td><Form.Control id={"value-"+this.props.id} value={this.props.filters[this.props.id].value} placeholder="Value of Field" onChange={this.handleChange}/></td>
             </tr>
         );
     }
@@ -125,4 +104,4 @@ const mapDispatchToProps = dispatch => ({
     })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FILTER_Item);
+export default connect(mapStateToProps, mapDispatchToProps)(FIELD_Filter);
