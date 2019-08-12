@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 
 import "./Container.css";
 
@@ -14,12 +16,23 @@ class CORE_Mode extends Component {
     render() {
         return (
             <div className="Container">
-                <h3>Report Type: </h3>
-                <Form.Control as="select" onChange={e => this.props.update(e.target.value)}>
-                    <option/>
-                    <option label="Oracle" value="Oracle"/>
-                    <option label="SQL Server" value="SQL Server"/>
-                </Form.Control>
+            <Row>
+                <Col className="half">
+                    <h3>Server Type: </h3>
+                    <Form.Control id="server_type" as="select" onChange={e => this.props.updateServer(e.target.value)}>
+                        <option/>
+                        <option label="Oracle" value="Oracle"/>
+                        <option label="SQL Server" value="SQL Server"/>
+                    </Form.Control>
+                </Col> <Col className="half">
+                    <h3>Report Type: </h3>
+                    <Form.Control id="server_type" as="select" onChange={e => this.props.updateReport(e.target.value)}>
+                        <option/>
+                        <option label="Crystal" value="Crystal"/>
+                        <option label="SSRS" value="SQL SSRS"/>
+                    </Form.Control>
+                </Col>
+            </Row>
             </div>
         );
     }
@@ -29,9 +42,19 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    update: m => dispatch({
+    updateServer: m => dispatch({
         type: "update_type",
-        payload: m
+        payload: {
+            type: "server",
+            value: m
+        }
+    }),
+    updateReport: m => dispatch({
+        type: "update_type",
+        payload: {
+            type: "report",
+            value: m
+        }
     })
 });
 

@@ -6,6 +6,11 @@
     align-items: center;
 }
 
+.half {
+    width: 50%;
+    margin: 10px
+}
+
 .darkHR {
     border-color: DarkGray;
 }

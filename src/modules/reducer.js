@@ -1,7 +1,8 @@
 import _ from "lodash";
 
 const initialState = {
-    mode: null,
+    report_type: null,
+    server_type: null,
     groups: {
         // "1": {
         //     key: 1,
@@ -53,7 +54,11 @@ const sCubeReducer = (state = initialState, action) => {
 
     case "update_type": {
         let newState = _.cloneDeep(state);
-        newState.mode = action.payload;
+        if (action.payload.type === "report") {
+            newState.report_type = action.payload.value;
+        } else if (action.payload.type === "server") {
+            newState.server_type = action.payload.value;
+        }
         return newState;
     }
 
