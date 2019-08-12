@@ -184,85 +184,50 @@ class CORE_Output extends Component {
 
         //Add the Parameters
         let parameters = Array.from(group.parameters);
-        console.log(parameters);
+        for (let p in parameters) {
+            let param = this.props.state.parameters[parameters[p]];
+            if (param.table && param.field) {
+                if (!flag) {
+                    text += "WHERE ";
+                    flag = true;
+                } else {
+                    text += "AND   ";
+                }
 
-        text += "\n";
+                text += tables[0].shortname + "." + schema[param.table].data[param.field].table_key;
+
+                switch (param.comparison) {
+                    case "==": {
+                        text += " = ";
+                        break;
+                    }
+                    case "!=": {
+                        text += " != ";
+                        break;
+                    }
+                    default: break;
+                }
+
+                switch (param.data_type) {
+                    case "Text": {
+                        break;
+                    }
+                    case "Number": {
+                        break;
+                    }
+                    case "Date": {
+                        break;
+                    }
+                    default: break;
+                }
+
+                text += "{@" + param.parameter_name + "}\n";
+
+                text += "\n";
+            }
+        }
+
         return text;
-    //     let text = "WHERE\n";
-    //     let flag = false;
-    //     let table = tables[0];
-    //
-    //     //Check Filters
-    //     for (let f in this.props.state.filters) {
-    //         let filter = this.props.state.filters[f];
-    //         if (!filter.table || !filter.field) continue;
-    //         if (filter.table === table) {
-    //             if (flag) text += "AND ";
-    //             flag = true;
-    //
-    //             if (filter.req) {
-    //                 text += shortnames[0] + "." + schema[filter.table].required[filter.field].table_key;
-    //             } else {
-    //                 text += shortnames[0] + "." + schema[filter.table].data[filter.field].table_key;
-    //             }
-    //
-    //             switch (filter.comparison) {
-    //                 case "==": {
-    //                     text += " = ";
-    //                     break;
-    //                 }
-    //                 case "!=": {
-    //                     text += " != ";
-    //                     break;
-    //                 }
-    //                 default: break;
-    //             }
-    //             text += "'" + filter.value + "'\n";
-    //         }
-    //     }
-    //
-    //     //Check Parameters
-    //     for (let p in this.props.state.parameters) {
-    //         let param = this.props.state.parameters[p];
-    //         if (!param.table || !param.field) continue;
-    //         console.log(param.table)
-    //         if (param.table === table) {
-    //             console.log("Param");
-    //             if (flag) text += "AND ";
-    //             flag = true;
-    //
-    //
-    //             text += shortnames[0] + "." + schema[param.table].data[param.field].table_key;
-    //
-    //             switch (param.comparison) {
-    //                 case "==": {
-    //                     text += " = ";
-    //                     break;
-    //                 }
-    //                 case "!=": {
-    //                     text += " != ";
-    //                     break;
-    //                 }
-    //                 default: break;
-    //             }
-    //
-    //             switch (param.data_type) {
-    //                 case "Text": {
-    //                     break;
-    //                 }
-    //                 case "Number": {
-    //                     break;
-    //                 }
-    //                 case "Date": {
-    //                     break;
-    //                 }
-    //                 default: break;
-    //             }
-    //             text += "{@" + param.parameter_name + "}\n";
-    //         }
-    //     }
-    //
-    //     return text;
     }
 
     render() {
