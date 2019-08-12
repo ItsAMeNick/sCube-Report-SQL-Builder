@@ -20,6 +20,12 @@ class PARAM_Item extends Component {
         let newItem = _.cloneDeep(this.props.parameters[this.props.id]);
         let type = event.target.id.split("-")[0];
 
+        if (type === "group") {
+            if (event.target.value) {
+                this.props.add2Group(event.target.value, this.props.id);
+            }
+        }
+
         newItem[type] = event.target.value;
         this.props.update(this.props.id, newItem);
     }
@@ -42,17 +48,18 @@ class PARAM_Item extends Component {
     }
 
     getGroups(table) {
-        // //Good God, Get a Group Gurl
-        // if (!table) return <option/>
-        // let groups = this.props.groups;
-        // let keys = Object.keys(groups);
-        // keys = keys.filter(k => {
-        //     return (groups[k].table === table)
-        // });
-        // keys = keys.map(k => {
-        //     return <option label={k} value={k} key={k}/>
-        // });
-        // return keys;
+        //Good God, Get a Group Gurl
+        if (!table) return <option/>
+        let groups = this.props.groups;
+        let keys = Object.keys(groups);
+        keys = keys.filter(k => {
+            return (groups[k].table === table)
+        });
+        keys = [""].concat(keys);
+        keys = keys.map(k => {
+            return <option label={k} value={k} key={k}/>
+        });
+        return keys;
     }
 
     render() {
@@ -86,7 +93,8 @@ class PARAM_Item extends Component {
 }
 
 const mapStateToProps = state => ({
-    parameters: state.parameters
+    parameters: state.parameters,
+    groups: state.groups
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -96,6 +104,14 @@ const mapDispatchToProps = dispatch => ({
             type: "parameters",
             ref: myRef,
             item: newItem
+        }
+    }),
+    add2Group: (group, myRef) => dispatch({
+        type: "add_to_group",
+        payload: {
+            type: "parameters",
+            group: group,
+            ref: myRef
         }
     })
 });

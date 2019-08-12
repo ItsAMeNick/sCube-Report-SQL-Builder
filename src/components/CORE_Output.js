@@ -16,11 +16,11 @@ class CORE_Output extends Component {
 
         let select_text = this.genSelectClause(shortnames);
         let from_text = this.genFromClause(shortnames);
-        // let where_text = this.genWhereClause(shortnames);
-        //
+        let where_text = this.genWhereClause(shortnames);
+
         sql_text += select_text;
         sql_text += from_text;
-        // sql_text += where_text;
+        sql_text += where_text;
 
         return sql_text;
     }
@@ -107,19 +107,12 @@ class CORE_Output extends Component {
                     }
                 }
 
+                //Add the Parameters
                 let parameters = Array.from(group.parameters);
                 console.log(parameters);
             }
             text += "\n";
         }
-    //             //Add the Filters
-    //             let filters = this.props.state.filters;
-    //
-    //
-    //
-    //             text += "\n";
-    //         }
-    //     }
         return text;
     }
 
@@ -146,7 +139,55 @@ class CORE_Output extends Component {
         return text;
     }
 
-    // genWhereClause(tables, shortnames) {
+    genWhereClause(tables) {
+        if (Object.keys(tables).length < 1) return "";
+
+        let text = "";
+        let flag = false;
+
+        let group = this.props.state.groups[tables[0].group];
+
+        //Add the Filters
+        let filters = Array.from(group.filters);
+        for (let f in filters) {
+            let filter = this.props.state.filters[filters[f]];
+            if (filter.table && (filter.table === tables[0].table) && filter.field) {
+                if (!flag) {
+                    text += "WHERE ";
+                    flag = true;
+                } else {
+                    text += "AND   ";
+                }
+
+                if (filter.req) {
+                    text += tables[0].shortname + "." + schema[tables[0].table].required[filter.field].table_key;
+                } else {
+                    text += tables[0].shortname + "." + schema[tables[0].table].data[filter.field].table_key;
+                }
+
+                switch (filter.comparison) {
+                    case "==": {
+                        text += " = ";
+                        break;
+                    }
+                    case "!=": {
+                        text += " != ";
+                        break;
+                    }
+                    default: break;
+                }
+                text += "'" + filter.value + "'";
+
+                text += "\n";
+            }
+        }
+
+        //Add the Parameters
+        let parameters = Array.from(group.parameters);
+        console.log(parameters);
+
+        text += "\n";
+        return text;
     //     let text = "WHERE\n";
     //     let flag = false;
     //     let table = tables[0];
@@ -222,8 +263,8 @@ class CORE_Output extends Component {
     //     }
     //
     //     return text;
-    // }
-    //
+    }
+
     render() {
         return (
         <div>
