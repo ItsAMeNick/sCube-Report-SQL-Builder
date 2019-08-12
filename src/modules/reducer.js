@@ -12,7 +12,7 @@ const initialState = {
         // }
     },
     fields: {
-        "1": {
+        1: {
             key: "1",
             group: "",
             table: "",

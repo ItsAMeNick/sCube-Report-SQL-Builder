@@ -20,6 +20,12 @@ class Filter_Container extends Component {
         let newItem = _.cloneDeep(this.props.filters[this.props.id]);
         let type = event.target.id.split("-")[0];
 
+        if (type === "group") {
+            if (event.target.value) {
+                this.props.add2Group(event.target.value, this.props.id);
+            }
+        }
+
         newItem[type] = event.target.value;
         this.props.update(this.props.id, newItem);
     }
@@ -49,6 +55,7 @@ class Filter_Container extends Component {
         keys = keys.filter(k => {
             return (groups[k].table === table)
         });
+        keys = [""].concat(keys);
         keys = keys.map(k => {
             return <option label={k} value={k} key={k}/>
         });
@@ -106,6 +113,14 @@ const mapDispatchToProps = dispatch => ({
             type: "filters",
             ref: myRef,
             item: newItem
+        }
+    }),
+    add2Group: (group, myRef) => dispatch({
+        type: "add_to_group",
+        payload: {
+            type: "filters",
+            group: group,
+            ref: myRef
         }
     })
 });

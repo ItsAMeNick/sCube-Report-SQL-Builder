@@ -38,7 +38,7 @@ class FIELD_Container extends Component {
                     for (let g in this.props.groups) {
                         if (event.target.value === this.props.groups[g].table) {
                             newItem.group = g;
-                            this.props.add2Group(g, this.props.id);
+                            this.props.add2Group(g, this.props.id, "fields");
                         }
                     }
                     //If you couldnt be placed in a group then actually make one
@@ -54,14 +54,14 @@ class FIELD_Container extends Component {
                         for (let g in this.props.groups) {
                             if (event.target.value === this.props.groups[g].table) {
                                 newItem.group = g;
-                                this.props.add2Group(g, this.props.id);
+                                this.props.add2Group(g, this.props.id, "fields");
                                 found_group = true;
                             }
                         }
                         //If you couldnt be placed in a group then actually make one
                         if (!found_group) this.props.addGroup(event.target.value, this.props.id);
                     } else {
-                        this.props.add2Group(this.props.fields[this.props.id].group, this.props.id);
+                        this.props.add2Group(this.props.fields[this.props.id].group, this.props.id, "fields");
                     }
                 } else {
                     this.props.addGroup(event.target.value, this.props.id);
@@ -116,6 +116,7 @@ class FIELD_Container extends Component {
                                 console.log(filterRef, newFilter);
                                 this.props.requireFilter(filterRef, newFilter);
                             }
+                            this.props.add2Group(this.props.fields[this.props.id].group, filterRef, "filters")
                         }
                     }
                 }
@@ -212,10 +213,10 @@ const mapDispatchToProps = dispatch => ({
             ref: myRef
         }
     }),
-    add2Group: (group, myRef) => dispatch({
+    add2Group: (group, myRef, type) => dispatch({
         type: "add_to_group",
         payload: {
-            type: "fields",
+            type: type,
             group: group,
             ref: myRef
         }

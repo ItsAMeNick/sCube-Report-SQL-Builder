@@ -72,8 +72,40 @@ class CORE_Output extends Component {
                     }
                 }
 
+                //Add the Filters
                 let filters = Array.from(group.filters);
-                console.log(filters);
+                for (let f in filters) {
+                    let filter = this.props.state.filters[filters[f]];
+                    if (filter.table && (filter.table === tables[i].table) && filter.field) {
+                        if (!flag) {
+                            text += "ON ";
+                            flag = true;
+                        } else {
+                            text += "AND ";
+                        }
+
+                        if (filter.req) {
+                            text += tables[i].shortname + "." + schema[tables[i].table].required[filter.field].table_key;
+                        } else {
+                            text += tables[i].shortname + "." + schema[tables[i].table].data[filter.field].table_key;
+                        }
+
+                        switch (filter.comparison) {
+                            case "==": {
+                                text += " = ";
+                                break;
+                            }
+                            case "!=": {
+                                text += " != ";
+                                break;
+                            }
+                            default: break;
+                        }
+                        text += "'" + filter.value + "'";
+
+                        text += "\n";
+                    }
+                }
 
                 let parameters = Array.from(group.parameters);
                 console.log(parameters);
@@ -82,37 +114,7 @@ class CORE_Output extends Component {
         }
     //             //Add the Filters
     //             let filters = this.props.state.filters;
-    //             for (let f in filters) {
-    //                 let filter = filters[f];
-    //                 if (filter.table && (filter.table === tables[t]) && filter.field) {
-    //                     if (req_conditions.length <=1) {
-    //                         text += "ON ";
-    //                     } else {
-    //                         text += "AND ";
-    //                     }
     //
-    //                     if (filter.req) {
-    //                         text += shortnames[t] + "." + schema[filter.table].required[filter.field].table_key;
-    //                     } else {
-    //                         text += shortnames[t] + "." + schema[filter.table].data[filter.field].table_key;
-    //                     }
-    //
-    //                     switch (filter.comparison) {
-    //                         case "==": {
-    //                             text += " = ";
-    //                             break;
-    //                         }
-    //                         case "!=": {
-    //                             text += " != ";
-    //                             break;
-    //                         }
-    //                         default: break;
-    //                     }
-    //                     text += "'" + filter.value + "'";
-    //
-    //                     text += "\n";
-    //                 }
-    //             }
     //
     //
     //             text += "\n";
