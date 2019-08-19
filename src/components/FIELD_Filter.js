@@ -66,27 +66,80 @@ class FIELD_Filter extends Component {
         return keys;
     }
 
+    genRow() {
+        switch(this.props.filters[this.props.id].field) {
+            case "ASI Field Name": {
+                return (
+                    <tr style={{"backgroundColor": "#FBBBB9"}}>
+                        <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
+                        <td>
+                            <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
+                        </td>
+                        <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} readOnly onChange={this.handleChange}>
+                            <option label="Equal To" value="=="/>
+                        </Form.Control></td>
+                        {this.props.loaded_asis ?
+                            <td><Form.Control id={"value-"+this.props.id} as="select" value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}>
+                                {this.loadOptionsFromData()}
+                            </Form.Control></td>
+                        :
+                            <td><Form.Control id={"value-"+this.props.id} value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}/></td>
+                        }
+                    </tr>
+                )
+            }
+            default: {
+                return (
+                    <tr style={{"backgroundColor": "#FBBBB9"}}>
+                        <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
+                        <td>
+                            <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
+                        </td>
+                        <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} readOnly onChange={this.handleChange}>
+                            <option label="Equal To" value="=="/>
+                        </Form.Control></td>
+                        <td><Form.Control id={"value-"+this.props.id} value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}/></td>
+                    </tr>
+                )
+            }
+        }
+    }
+
+    loadOptionsFromData() {
+        return [<option key={-1}/>].concat(this.props.loaded_asis.filter(item => {
+            if (this.props.loaded_id >= 0) {
+                return this.props.loaded_data[this.props.loaded_id].asi_code === item.code;
+            } else {
+                return true;
+            }
+        }).filter(item => {
+            return item.group === "APPLICATION";
+        }).sort((item1, item2) => {
+            if (item1.code.localeCompare(item2.code) === 0) {
+                if (item1.type.localeCompare(item2.type) === 0) {
+                    return item1.name.localeCompare(item2.name);
+                } else {
+                    return item1.type.localeCompare(item2.type)
+                }
+            } else {
+                return item1.code.localeCompare(item2.code);
+            }
+        }).map(item => {
+            return <option key={item.key} label={item.alias ? item.code+" - "+item.type+" - "+item.alias : item.code+" - "+item.type+" - "+item.name} value={item.name}/>
+        }));
+    }
+
     render() {
         return (
-            <tr style={{"backgroundColor": "#FBBBB9"}}>
-                <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
-                <td>
-                    <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
-                </td>
-                <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} onChange={this.handleChange}>
-                    <option label="" value=""/>
-                    <option label="Equal To" value="=="/>
-                    <option label="Not Equal To" value="!="/>
-                </Form.Control></td>
-                <td><Form.Control id={"value-"+this.props.id} value={this.props.filters[this.props.id].value} placeholder="Value of Field" onChange={this.handleChange}/></td>
-            </tr>
+            this.genRow()
         );
     }
 }
 
 const mapStateToProps = state => ({
     filters: state.filters,
-    groups: state.groups
+    groups: state.groups,
+    loaded_asis: state.loaded_data.asis
 });
 
 const mapDispatchToProps = dispatch => ({

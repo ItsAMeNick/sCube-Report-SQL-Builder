@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 
 import "./App.css";
 
+import Upload from "./components/CORE_Upload.js";
 import Mode from "./components/CORE_Mode.js";
 
 import Filter from "./components/FILTER_Container.js";
@@ -31,6 +32,10 @@ class App extends Component {
             </Row>
             <Col>
                 <Mode/>
+            </Col>
+            <hr/>
+            <Col>
+                <Upload/>
             </Col>
             <hr/>
             <Col>

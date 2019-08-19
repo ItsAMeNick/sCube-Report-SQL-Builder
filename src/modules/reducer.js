@@ -42,6 +42,20 @@ const initialState = {
         //     field: "",
         //     comparison: ""
         // }
+    },
+    loaded_data: {
+        svp: null,
+        caps: null,
+        asis: null,
+        fees: null,
+        notes: null,
+        inspections: null,
+        inspection_results: null,
+        contact_types: null,
+        lp_types: null,
+        doc_types: null,
+        workflows: null,
+        checklists: null,
     }
 };
 
@@ -197,6 +211,13 @@ const sCubeReducer = (state = initialState, action) => {
     case "add_specific_filter": {
         let newState = _.cloneDeep(state);
         newState.filters[action.payload.ref] = action.payload.item
+        return newState;
+    }
+
+    //Below is related to file uploads
+    case "load_file_data": {
+        let newState = _.cloneDeep(state);
+        newState.loaded_data[action.payload.type] = action.payload.data
         return newState;
     }
 

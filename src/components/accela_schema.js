@@ -89,24 +89,6 @@ var accela_data = {
                 name: "ASI_Value"
             }
         }
-    },
-    "Table Name Seen By User": {
-        table_name: "ACCELA TABLE NAME",
-        shortname: "short",
-        parent: "My Parent's user friendly name, who would you need to join through",
-        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_I2", "B1_PER_ID3"],
-        required: {
-            "User friendly field name": {
-                table_key: "table key",
-                name: "base for my report reference name"
-            }
-        },
-        data: {
-            "User friendly field name": {
-                table_key: "table key",
-                name: "base for my report reference name"
-            }
-        }
     }
 }
 
