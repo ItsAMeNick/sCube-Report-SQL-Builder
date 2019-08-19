@@ -29,6 +29,7 @@ class CORE_Output extends Component {
         let shortnames = [];
 
         for (let g in this.props.state.groups) {
+            console.log(this.props.state);
             shortnames.push({
                 table: this.props.state.groups[g].table,
                 group: this.props.state.groups[g].key,

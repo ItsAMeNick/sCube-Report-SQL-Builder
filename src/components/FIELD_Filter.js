@@ -107,12 +107,6 @@ class FIELD_Filter extends Component {
 
     loadOptionsFromData() {
         return [<option key={-1}/>].concat(this.props.loaded_asis.filter(item => {
-            if (this.props.loaded_id >= 0) {
-                return this.props.loaded_data[this.props.loaded_id].asi_code === item.code;
-            } else {
-                return true;
-            }
-        }).filter(item => {
             return item.group === "APPLICATION";
         }).sort((item1, item2) => {
             if (item1.code.localeCompare(item2.code) === 0) {

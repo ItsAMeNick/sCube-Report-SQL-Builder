@@ -25,6 +25,10 @@ var accela_data = {
             "Category": {
                 table_key: "B1_PER_CATEGORY",
                 name: "Record_Category"
+            },
+            "Service Provider Code": {
+                table_key: "SERV_PROV_CODE",
+                name: "SVP"
             }
         }
     },

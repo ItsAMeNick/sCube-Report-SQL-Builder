@@ -19,9 +19,10 @@ class FILTER_Item extends Component {
     handleChange(event) {
         let newItem = _.cloneDeep(this.props.filters[this.props.id]);
         let type = event.target.id.split("-")[0];
-
         if (type === "group") {
-            if (event.target.value) {
+            if (event.target.value === "New") {
+                this.props.addGroup(this.props.filters[this.props.id].table, this.props.id);
+            } else if (event.target.value) {
                 this.props.add2Group(event.target.value, this.props.id);
             }
         }
@@ -55,7 +56,7 @@ class FILTER_Item extends Component {
         keys = keys.filter(k => {
             return (groups[k].table === table)
         });
-        keys = [""].concat(keys);
+        keys = [""].concat(keys).concat(["New"]);
         keys = keys.map(k => {
             return <option label={k} value={k} key={k}/>
         });
@@ -89,10 +90,10 @@ class FILTER_Item extends Component {
                 </Form.Control></td>
                 <td><Form.Control id={"value-"+this.props.id} value={this.props.filters[this.props.id].value} onChange={this.handleChange}/></td>
                 { this.props.req ? <React.Fragment>
-                    <td><Form.Control id={"group-"+this.props.id} readOnly value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
+                    <td><Form.Control id={"group-filter-"+this.props.id} readOnly value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
                     </Form.Control></td>
                 </React.Fragment> : <React.Fragment>
-                    <td><Form.Control id={"group-"+this.props.id} as="select" value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
+                    <td><Form.Control id={"group-filter-"+this.props.id} as="select" value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
                         {this.getGroups(this.props.filters[this.props.id].table)}
                     </Form.Control></td>
                 </React.Fragment> }
@@ -122,7 +123,15 @@ const mapDispatchToProps = dispatch => ({
             group: group,
             ref: myRef
         }
-    })
+    }),
+    addGroup: (table, myRef) => dispatch({
+        type: "add_group",
+        payload: {
+            type: "filters",
+            table: table,
+            ref: myRef
+        }
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FILTER_Item);

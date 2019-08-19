@@ -171,7 +171,7 @@ class FIELD_Container extends Component {
                     {this.getAccelaFields(this.props.fields[this.props.id].table)}
                 </Form.Control></td>
                 <td><Form.Control id={"report-"+this.props.id} readOnly value={this.props.fields[this.props.id].report}></Form.Control></td>
-                <td><Form.Control id={"group-"+this.props.id} readOnly value={this.props.fields[this.props.id].group}></Form.Control></td>
+                <td><Form.Control id={"group-field-"+this.props.id} readOnly value={this.props.fields[this.props.id].group}></Form.Control></td>
             </tr>
         );
     }
