@@ -79,8 +79,9 @@ class FIELD_Container extends Component {
             }
 
             if (table) {
-                //First delete all the exisitng required filters
                 let required_fields = schema[table].required
+
+                //First delete all the exisiting required filters
                 if (required_fields) {
                     let keys = Object.keys(required_fields);
                     for (let r in keys) {
@@ -135,7 +136,7 @@ class FIELD_Container extends Component {
                 this.props.updateReportName(this.props.id, schema[table].data[field].name);
             }
         }
-
+        console.log("Validating");
         this.props.validateGroups();
     }
 

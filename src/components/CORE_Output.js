@@ -81,6 +81,7 @@ class CORE_Output extends Component {
                 let filters = Array.from(group.filters);
                 for (let f in filters) {
                     let filter = this.props.state.filters[filters[f]];
+                    if (!filter) continue;
                     if (filter.table && (filter.table === tables[i].table) && filter.field) {
                         if (!flag) {
                             text += "ON ";
@@ -195,6 +196,7 @@ class CORE_Output extends Component {
         let filters = Array.from(group.filters);
         for (let f in filters) {
             let filter = this.props.state.filters[filters[f]];
+            if (!filter) continue;
             if (filter.table && (filter.table === tables[0].table) && filter.field) {
                 if (!flag) {
                     text += "WHERE ";

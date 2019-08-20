@@ -159,11 +159,11 @@ var accela_data = {
         parent: null,
         join_clause: ["SERV_PROV_CODE"],
         required: {
-            "Group": {
+            "STDC Group": {
                 table_key: "BIZDOMAIN",
                 name: "Choice Group"
             },
-            "Field": {
+            "STDC Field": {
                 table_key: "BIZDOMAIN_VALUE",
                 name: "STD Choice"
             }
@@ -174,7 +174,37 @@ var accela_data = {
                 name: "STD_Value"
             }
         }
-    }
+    },
+    "Fee": {
+        table_name: "F4FEEITEM",
+        shortname: "fee",
+        parent: null,
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
+        required: {
+            "Fee Item": {
+                table_key: "GF_COD",
+                name: "Fee_Code"
+            }
+        },
+        data: {
+            "Description": {
+                table_key: "GF_DES",
+                name: "Fee_Description"
+            },
+            "Schedule": {
+                table_key: "GF_FEE_SCHEDULE",
+                name: "Fee_Schedule"
+            },
+            "Value": {
+                table_key: "GF_FEE",
+                name: "Fee_Val"
+            },
+            "Status": {
+                table_key: "GF_ITEM_STATUS_FLAG",
+                name: "Fee_Status"
+            }
+        }
+    },
 }
 
 export default {accela_data};
