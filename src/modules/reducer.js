@@ -4,7 +4,7 @@ const initialState = {
     report_type: null,
     server_type: null,
     groups: {
-        // "1": {
+        // 1: {
         //     key: 1,
         //     table: "",
         //     fields: new Set([]),
@@ -22,8 +22,8 @@ const initialState = {
         }
     },
     filters: {
-        // "1": {
-        //     key: "1",
+        // 1: {
+        //     key: 1,
         //     group: "",
         //     req: false,
         //     table: "",
@@ -33,8 +33,8 @@ const initialState = {
         // }
     },
     parameters: {
-        // "1": {
-        //     key: "1",
+        // 1: {
+        //     key: 1,
         //     group: "",
         //     parameter_name: "",
         //     data_type: "",
@@ -235,6 +235,30 @@ const sCubeReducer = (state = initialState, action) => {
                         newState.groups[g].fields.delete(fields[f])
                     }
                     console.log(fields[f]);
+                }
+
+                for (let f in filters) {
+                    console.log(newState.filters);
+                    if (Object.keys(newState.filters).length <= 0) continue;
+                    // if (newState.filters[filters[f]]) {
+                    //     console.log("exists");
+                    // } else {
+                    //     console.log("does not exist");
+                    //     newState.groups[g].filters.delete(filters[f]);
+                    // }
+                    if (filters[f][0] === "R") {
+                        let corresponding_field = filters[f].split("-")[1];
+                        if (newState.fields[corresponding_field] && (newState.fields[corresponding_field].table === newState.filters[filters[f]].table)) {
+                            console.log("needed")
+                        } else {
+                            console.log("Nolonger needed");
+                            newState.groups[g].filters.delete(filters[f]);
+                        }
+                    } else {
+                        if (newState.filters[filters[f]] && parseInt(newState.filters[filters[f]].group) !== newState.groups[g].key) {
+                            newState.groups[g].filters.delete(filters[f]);
+                        }
+                    }
                 }
 
                 if (!newState.groups[g].fields.size && !newState.groups[g].filters.size && !newState.groups[g].parameters.size) {
