@@ -27,8 +27,10 @@ class FILTER_Item extends Component {
             }
         }
 
-        newItem[type] = event.target.value;
-        this.props.update(this.props.id, newItem);
+        if (type !== "group") {
+            newItem[type] = event.target.value;
+            this.props.update(this.props.id, newItem);
+        }
     }
 
     getAccelaTables() {

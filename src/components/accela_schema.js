@@ -3,7 +3,7 @@ var accela_data = {
         table_name: "B1PERMIT",
         shortname: "b1",
         parent: null,
-        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_I2", "B1_PER_ID3"],
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
         required: null,
         data: {
             "Record ID": {
@@ -29,6 +29,14 @@ var accela_data = {
             "Service Provider Code": {
                 table_key: "SERV_PROV_CODE",
                 name: "SVP"
+            },
+            "Application Status": {
+                table_key: "B1_APPL_STATUS",
+                name: "Status"
+            },
+            "Application Status Date": {
+                table_key: "B1_APPL_STATUS_DATE",
+                name: "Status_Date"
             }
         }
     },
@@ -36,7 +44,7 @@ var accela_data = {
         table_name: "B3ADDRES",
         shortname: "addres",
         parent: null,
-        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_I2", "B1_PER_ID3"],
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
         required: null,
         data: {
             "Street Number": {
@@ -76,11 +84,36 @@ var accela_data = {
             }
         }
     },
+    "Parcel Information": {
+        table_name: "B3PARCEL",
+        shortname: "parcel",
+        parent: null,
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
+        required: null,
+        data: {
+            "ID": {
+                table_key: "B1_PARCEL_NBR",
+                name: "Parcel_ID"
+            },
+            "Lot": {
+                table_key: "B1_LOT",
+                name: "Parcel_Lot"
+            },
+            "Block": {
+                table_key: "B1_BLOCK",
+                name: "Parcel_Block"
+            },
+            "Subdivision": {
+                table_key: "B1_SUBDIVISION",
+                name: "Parcel_Subdivision"
+            }
+        }
+    },
     "ASI Field": {
         table_name: "BCHCKBOX",
         shortname: "asi",
         parent: null,
-        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_I2", "B1_PER_ID3"],
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
         required: {
             "ASI Field Name": {
                 table_key: "B1_CHECKBOX_DESC",
@@ -91,6 +124,54 @@ var accela_data = {
             "ASI Field Value": {
                 table_key: "B1_CHECKLIST_COMMENT",
                 name: "ASI_Value"
+            }
+        }
+    },
+    "Contact Information": {
+        table_name: "B3CONTACT",
+        shortname: "contact",
+        parent: null,
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
+        required: {
+            "Contact Type": {
+                table_key: "B1_CONTACT_TYPE",
+                name: "Contact_Type"
+            }
+        },
+        data: {
+            "First Name": {
+                table_key: "B1_FNAME",
+                name: "First_Name"
+            },
+            "Middle Name": {
+                table_key: "B1_MNAME",
+                name: "Middle_Name"
+            },
+            "Last Name": {
+                table_key: "B1_LNAME",
+                name: "Last_Name"
+            }
+        }
+    },
+    "Standard Choice": {
+        table_name: "RBIZDOMAIN_VALUE",
+        shortname: "std",
+        parent: null,
+        join_clause: ["SERV_PROV_CODE"],
+        required: {
+            "Group": {
+                table_key: "BIZDOMAIN",
+                name: "Choice Group"
+            },
+            "Field": {
+                table_key: "BIZDOMAIN_VALUE",
+                name: "STD Choice"
+            }
+        },
+        data: {
+            "Value": {
+                table_key: "VALUE_DESC",
+                name: "STD_Value"
             }
         }
     }

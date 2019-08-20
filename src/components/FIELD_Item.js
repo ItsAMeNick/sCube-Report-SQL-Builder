@@ -108,6 +108,10 @@ class FIELD_Container extends Component {
                                             };
                             if (keys[r] === "ASI Field Name") {
                                 newFilter.comparison = "==";
+                            } else if (this.props.fields[this.props.id].table === "Contact Information") {
+                                newFilter.comparison = "==";
+                            } else if (this.props.fields[this.props.id].table === "Standard Choice") {
+                                newFilter.comparison = "==";
                             }
 
                             if (!this.props.filters[filterRef]) {
@@ -131,6 +135,8 @@ class FIELD_Container extends Component {
                 this.props.updateReportName(this.props.id, schema[table].data[field].name);
             }
         }
+
+        this.props.validateGroups();
     }
 
     isGroupable(table) {
@@ -236,6 +242,10 @@ const mapDispatchToProps = dispatch => ({
             ref: myRef,
             base: myBase
         }
+    }),
+    validateGroups: () => dispatch({
+        type: "validate_groups",
+        payload: null
     })
 });
 

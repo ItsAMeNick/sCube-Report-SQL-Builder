@@ -57,7 +57,11 @@ class CORE_Output extends Component {
                 text += "FROM " + schema[tables[i].table].table_name + " " + tables[i].shortname + "\n";
                 from_table = i;
             } else {
-                text += "LEFT JOIN " + schema[tables[i].table].table_name + " " + tables[i].shortname + "\n";
+                if (this.props.state.groups[tables[i].group].fields.size) { //If this is in a group with field data
+                    text += "LEFT JOIN " + schema[tables[i].table].table_name + " " + tables[i].shortname + "\n";
+                } else {
+                    text += "JOIN " + schema[tables[i].table].table_name + " " + tables[i].shortname + "\n";
+                }
 
                 //Add Avaliable Joins
                 let flag = false;
