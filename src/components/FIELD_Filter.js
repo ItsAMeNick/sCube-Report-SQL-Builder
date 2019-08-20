@@ -98,7 +98,7 @@ class FIELD_Filter extends Component {
                         <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} readOnly onChange={this.handleChange}>
                             <option label="Equal To" value="=="/>
                         </Form.Control></td>
-                        {this.props.loaded_asis ?
+                        {this.props.loaded_fees ?
                             <td><Form.Control id={"value-"+this.props.id} as="select" value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}>
                                 {this.loadFeesFromData()}
                             </Form.Control></td>
@@ -118,7 +118,7 @@ class FIELD_Filter extends Component {
                         <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} readOnly onChange={this.handleChange}>
                             <option label="Equal To" value="=="/>
                         </Form.Control></td>
-                        {this.props.loaded_asis ?
+                        {this.props.loaded_contacts ?
                             <td><Form.Control id={"value-"+this.props.id} as="select" value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}>
                                 {this.loadContactsFromData()}
                             </Form.Control></td>
@@ -138,9 +138,9 @@ class FIELD_Filter extends Component {
                         <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} readOnly onChange={this.handleChange}>
                             <option label="Equal To" value="=="/>
                         </Form.Control></td>
-                        {this.props.loaded_asis ?
+                        {this.props.loaded_std ?
                             <td><Form.Control id={"value-"+this.props.id} as="select" value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}>
-                                {this.loadASIsFromData()}
+                                {this.loadSTDGroup()}
                             </Form.Control></td>
                         :
                             <td><Form.Control id={"value-"+this.props.id} value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}/></td>
@@ -158,9 +158,9 @@ class FIELD_Filter extends Component {
                         <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} readOnly onChange={this.handleChange}>
                             <option label="Equal To" value="=="/>
                         </Form.Control></td>
-                        {this.props.loaded_asis ?
+                        {this.props.loaded_std ?
                             <td><Form.Control id={"value-"+this.props.id} as="select" value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}>
-                                {this.loadASIsFromData()}
+                                {this.loadSTDChoice()}
                             </Form.Control></td>
                         :
                             <td><Form.Control id={"value-"+this.props.id} value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}/></td>
@@ -232,6 +232,26 @@ class FIELD_Filter extends Component {
             }));
     }
 
+    loadSTDGroup() {
+        return [<option key={-1}/>].concat(this.props.loaded_std
+            // .sort((item1, item2) => {
+            //     return item1.value.localeCompare(item2.value);
+            // })
+            .map(item => {
+                return <option key={item.key} label={item.name} value={item.name}/>
+            }));
+    }
+
+    loadSTDChoice() {
+        return [<option key={-1}/>].concat(this.props.loaded_std
+            // .sort((item1, item2) => {
+            //     return item1.value.localeCompare(item2.value);
+            // })
+            .map(item => {
+                return <option key={item.key} label={item.value} value={item.value}/>
+            }));
+    }
+
 render() {
     return (
         this.genRow()
@@ -244,7 +264,8 @@ const mapStateToProps = state => ({
     groups: state.groups,
     loaded_asis: state.loaded_data.asis,
     loaded_fees: state.loaded_data.fees,
-    loaded_contacts: state.loaded_data.contact_types
+    loaded_contacts: state.loaded_data.contact_types,
+    loaded_std: state.loaded_data.std_choices,
 });
 
 const mapDispatchToProps = dispatch => ({

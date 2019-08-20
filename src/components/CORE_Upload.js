@@ -291,8 +291,8 @@ class CORE_Upload extends Component {
 
                             case "SharedDropDownListModel.xml": {
                                 console.log("LOADING File: " + file_names[f]);
-                                //let rawJSON = fxp.parse(file_text).list;
-                                //console.log(rawJSON);
+                                let rawJSON = fxp.parse(file_text).list;
+                                console.log(rawJSON);
                                 // for (let i in rawJSON) {
                                 //
                                 // }
@@ -303,10 +303,11 @@ class CORE_Upload extends Component {
                                 console.log("LOADING File: " + file_names[f]);
                                 let rawJSON = fxp.parse(file_text).list.standardChoice;
                                 console.log(rawJSON);
+                                let filteredJSON_default = [];
                                 for (let i in rawJSON) {
                                     switch(rawJSON[i].name) {
                                         case "CONTACT TYPE": {
-                                            let filteredJSON = []
+                                            let filteredJSON = [];
                                             for (let s in rawJSON[i].standardChoiceValueModels.standardChoiceValue) {
                                                 let std = rawJSON[i].standardChoiceValueModels.standardChoiceValue[s];
                                                 filteredJSON.push({
@@ -329,9 +330,22 @@ class CORE_Upload extends Component {
                                             this.props.update("lp_types", filteredJSON);
                                             break;
                                         }
-                                        default: break;
+                                        default: {
+                                            for (let s in rawJSON[i].standardChoiceValueModels.standardChoiceValue) {
+                                                let std = rawJSON[i].standardChoiceValueModels.standardChoiceValue[s];
+                                                console.log(filteredJSON_default);
+                                                filteredJSON_default.push({
+                                                    key: filteredJSON_default.length,
+                                                    name: std.standardChoiceName,
+                                                    value: std.value,
+                                                    description: (std.description ? std.description : null),
+                                                });
+                                            }
+                                            break;
+                                        }
                                     }
                                 }
+                                this.props.update("std_choices", filteredJSON_default);
                                 break;
                             }
 

@@ -56,6 +56,7 @@ const initialState = {
         doc_types: null,
         workflows: null,
         checklists: null,
+        std_choices: null
     }
 };
 
