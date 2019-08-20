@@ -291,7 +291,7 @@ class CORE_Upload extends Component {
 
                             case "SharedDropDownListModel.xml": {
                                 console.log("LOADING File: " + file_names[f]);
-                                let rawJSON = fxp.parse(file_text).list;
+                                //let rawJSON = fxp.parse(file_text).list;
                                 //console.log(rawJSON);
                                 // for (let i in rawJSON) {
                                 //

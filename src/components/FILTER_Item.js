@@ -31,6 +31,7 @@ class FILTER_Item extends Component {
             newItem[type] = event.target.value;
             this.props.update(this.props.id, newItem);
         }
+        this.props.validateGroups();
     }
 
     getAccelaTables() {
@@ -134,6 +135,10 @@ const mapDispatchToProps = dispatch => ({
             ref: myRef
         }
     }),
+    validateGroups: () => dispatch({
+        type: "validate_groups",
+        payload: null
+    })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FILTER_Item);

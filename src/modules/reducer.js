@@ -238,20 +238,14 @@ const sCubeReducer = (state = initialState, action) => {
                 }
 
                 for (let f in filters) {
-                    console.log(newState.filters);
-                    if (Object.keys(newState.filters).length <= 0) continue;
-                    // if (newState.filters[filters[f]]) {
-                    //     console.log("exists");
-                    // } else {
-                    //     console.log("does not exist");
-                    //     newState.groups[g].filters.delete(filters[f]);
-                    // }
+                    console.log(filters);
                     if (filters[f][0] === "R") {
+                        console.log("Required Filter: ", filters[f])
                         let corresponding_field = filters[f].split("-")[1];
-                        if (newState.fields[corresponding_field] && (newState.fields[corresponding_field].table === newState.filters[filters[f]].table)) {
-                            console.log("needed")
+                        if (newState.fields[corresponding_field] && parseInt(newState.fields[corresponding_field].group) === newState.groups[g].key) {
+                            //console.log("GOOD");
                         } else {
-                            console.log("Nolonger needed");
+                            //console.log("BAD");
                             newState.groups[g].filters.delete(filters[f]);
                         }
                     } else {
