@@ -120,7 +120,7 @@ class FIELD_Filter extends Component {
                         </Form.Control></td>
                         {this.props.loaded_asis ?
                             <td><Form.Control id={"value-"+this.props.id} as="select" value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}>
-                                {this.loadASIsFromData()}
+                                {this.loadContactsFromData()}
                             </Form.Control></td>
                         :
                             <td><Form.Control id={"value-"+this.props.id} value={this.props.filters[this.props.id].value} placeholder="Name of Field" onChange={this.handleChange}/></td>
@@ -223,6 +223,15 @@ class FIELD_Filter extends Component {
         return codes;
     }
 
+    loadContactsFromData() {
+        return [<option key={-1}/>].concat(this.props.loaded_contacts
+            .sort((item1, item2) => {
+                return item1.value.localeCompare(item2.value);
+            }).map(item => {
+                return <option key={item.key} label={item.value} value={item.value}/>
+            }));
+    }
+
 render() {
     return (
         this.genRow()
@@ -234,7 +243,8 @@ const mapStateToProps = state => ({
     filters: state.filters,
     groups: state.groups,
     loaded_asis: state.loaded_data.asis,
-    loaded_fees: state.loaded_data.fees
+    loaded_fees: state.loaded_data.fees,
+    loaded_contacts: state.loaded_data.contact_types
 });
 
 const mapDispatchToProps = dispatch => ({

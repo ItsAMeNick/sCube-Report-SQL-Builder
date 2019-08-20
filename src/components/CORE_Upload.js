@@ -126,9 +126,7 @@ class CORE_Upload extends Component {
                                 } else {
                                     for (let i in rawJSON) {
                                         for (let f in rawJSON[i].refFeeItemModels.refFeeItem) {
-                                            let fee = rawJSON[i].refFeeItemModels.refFeeItem[f];
-                                            console.log(typeof fee.feeCod);
-                                            filteredJSON.push({
+                                            let fee = rawJSON[i].refFeeItemModels.refFeeItem[f];                                            filteredJSON.push({
                                                 key: filteredJSON.length,
                                                 schedule: fee.feeScheduleName,
                                                 code: (typeof fee.feeCod === "number" ? fee.feeCod.toString(10) : fee.feeCod),
@@ -291,9 +289,20 @@ class CORE_Upload extends Component {
                                 break;
                             }
 
+                            case "SharedDropDownListModel.xml": {
+                                console.log("LOADING File: " + file_names[f]);
+                                let rawJSON = fxp.parse(file_text).list;
+                                //console.log(rawJSON);
+                                // for (let i in rawJSON) {
+                                //
+                                // }
+                                break;
+                            }
+
                             case "StandardChoiceModel.xml": {
                                 console.log("LOADING File: " + file_names[f]);
                                 let rawJSON = fxp.parse(file_text).list.standardChoice;
+                                console.log(rawJSON);
                                 for (let i in rawJSON) {
                                     switch(rawJSON[i].name) {
                                         case "CONTACT TYPE": {
