@@ -254,20 +254,28 @@ class CORE_Output extends Component {
                     default: break;
                 }
 
+                let param_placeholder = "Unspecified Report Type";
+                if (this.props.state.report_type === "SSRS") {
+                    param_placeholder = "@" + param.parameter_name.replace(/\W/g, '_') + "\n";
+                } else if (this.props.state.report_type === "Crystal") {
+                    param_placeholder = "{?" + param.parameter_name.replace(/\W/g, '_') + "}\n";
+                }
+
                 switch (param.data_type) {
                     case "Text": {
+                        text += param_placeholder;
                         break;
                     }
                     case "Number": {
+                        text += param_placeholder;
                         break;
                     }
                     case "Date": {
+                        text += param_placeholder;
                         break;
                     }
                     default: break;
                 }
-
-                text += "{@" + param.parameter_name.replace(/\W/g, '_') + "}\n";
 
                 text += "\n";
             }

@@ -25,7 +25,7 @@ class PARAM_Item extends Component {
                 this.props.add2Group(event.target.value, this.props.id);
             }
         }
-
+        console.log(type);
         newItem[type] = event.target.value;
         this.props.update(this.props.id, newItem);
     }
@@ -78,7 +78,7 @@ class PARAM_Item extends Component {
                     <option label="Not Equal To" value="!="/>
                 </Form.Control></td>
                 <td><Form.Control id={"parameter_name-"+this.props.id} onChange={this.handleChange}/></td>
-                <td><Form.Control id={"data_type-"+this.props.id} as="select">
+                <td><Form.Control id={"data_type-"+this.props.id} as="select" onChange={this.handleChange}>
                     <option value="" label=""/>
                     <option value="Text" label="Text"/>
                     <option value="Number" label="Number"/>

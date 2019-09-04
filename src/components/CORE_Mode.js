@@ -29,7 +29,7 @@ class CORE_Mode extends Component {
                     <Form.Control id="server_type" as="select" onChange={e => this.props.updateReport(e.target.value)}>
                         <option/>
                         <option label="Crystal" value="Crystal"/>
-                        <option label="SSRS" value="SQL SSRS"/>
+                        <option label="SSRS" value="SSRS"/>
                     </Form.Control>
                 </Col>
             </Row>
