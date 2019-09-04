@@ -236,7 +236,6 @@ const sCubeReducer = (state = initialState, action) => {
                     if (newState.fields[fields[f]] && parseInt(newState.fields[fields[f]].group) !== newState.groups[g].key) {
                         newState.groups[g].fields.delete(fields[f])
                     }
-                    console.log(fields[f]);
                 }
 
                 for (let f in filters) {

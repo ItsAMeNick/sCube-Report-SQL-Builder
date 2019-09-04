@@ -136,7 +136,6 @@ class FIELD_Container extends Component {
                 this.props.updateReportName(this.props.id, schema[table].data[field].name);
             }
         }
-        console.log("Validating");
         this.props.validateGroups();
     }
 
