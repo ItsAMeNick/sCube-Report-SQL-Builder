@@ -22,6 +22,7 @@ class CORE_Output extends Component {
         sql_text += from_text;
         sql_text += where_text;
 
+        if (sql_text !== this.props.query) this.props.setQuery(sql_text);
         return sql_text;
     }
 
@@ -287,10 +288,15 @@ class CORE_Output extends Component {
 }
 
 const mapStateToProps = state => ({
-    state: state
+    state: state,
+    query: state.query
 });
 
 const mapDispatchToProps = dispatch => ({
+    setQuery: (query) => dispatch({
+        type: "set_query",
+        payload: query
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CORE_Output);

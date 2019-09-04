@@ -13,6 +13,7 @@ import Param from "./components/PARAM_Container.js";
 
 import Output from "./components/CORE_Output.js";
 import Debug from "./components/TEST_Debug.js";
+import Api from "./components/CORE_CallAPI.js";
 
 import { Provider as ReduxProvider } from "react-redux";
 import configureStore from "./modules/store";
@@ -48,9 +49,14 @@ class App extends Component {
             <hr/>
             <Col>
                 <Param/>
+            </Col> <Col>
+                <Debug/>
+            </Col> <Col>
+                <Output/>
             </Col>
-            <Debug/>
-            <Col><Output/></Col>
+            <Col>
+                <Api/>
+            </Col>
         </div>
         </ReduxProvider>
         );

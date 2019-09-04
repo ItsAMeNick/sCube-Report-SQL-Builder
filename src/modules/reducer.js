@@ -57,7 +57,8 @@ const initialState = {
         workflows: null,
         checklists: null,
         std_choices: null
-    }
+    },
+    query: null
 };
 
 const sCubeReducer = (state = initialState, action) => {
@@ -261,6 +262,12 @@ const sCubeReducer = (state = initialState, action) => {
                     delete newState.groups[g];
                 }
             }
+            return newState;
+        }
+
+        case "set_query": {
+            let newState = _.cloneDeep(state);
+            newState.query = action.payload;
             return newState;
         }
 

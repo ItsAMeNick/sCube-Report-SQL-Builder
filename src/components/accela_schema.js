@@ -10,6 +10,18 @@ var accela_data = {
                 table_key: "B1_ALT_ID",
                 name: "Record_ID"
             },
+            "ID1": {
+                table_key: "B1_PER_ID1",
+                name: "ID1"
+            },
+            "ID2": {
+                table_key: "B1_PER_ID2",
+                name: "ID2"
+            },
+            "ID3": {
+                table_key: "B1_PER_ID3",
+                name: "ID3"
+            },
             "Module": {
                 table_key: "B1_PER_Group",
                 name: "Record_Module"
