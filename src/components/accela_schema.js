@@ -49,6 +49,14 @@ var accela_data = {
             "Application Status Date": {
                 table_key: "B1_APPL_STATUS_DATE",
                 name: "Status_Date"
+            },
+            "Record Created Date": {
+                table_key: "B1_FILE_DD",
+                name: "Record_Created_Date"
+            },
+            "Record Name": {
+                table_key: "B1_SPECIAL_TEXT",
+                name: "Record_Name"
             }
         }
     },
@@ -162,6 +170,54 @@ var accela_data = {
             "Last Name": {
                 table_key: "B1_LNAME",
                 name: "Last_Name"
+            },
+            "Business Name": {
+                table_key: "B1_BUSINESS_NAME",
+                name: "Contact_Business_Name"
+            },
+            "Contact Address 1": {
+                table_key: "B1_ADDRESS1",
+                name: "Contact_Address1"
+            },
+            "Contact Address 2": {
+                table_key: "B1_ADDRESS2",
+                name: "Contact_Address2"
+            },
+            "Contact Address 3": {
+                table_key: "B1_ADDRESS3",
+                name: "Contact_Address3"
+            },
+            "Contact City": {
+                table_key: "B1_CITY",
+                name: "Contact_City"
+            },
+            "Contact State": {
+                table_key: "B1_STATE",
+                name: "Contact_State"
+            },
+            "Contact Zip": {
+                table_key: "B1_ZIP",
+                name: "Contact_Zip"
+            },
+            "Contact Country": {
+                table_key: "B1_COUNTRY",
+                name: "Contact_Country"
+            },
+            "Contact Phone 1": {
+                table_key: "B1_PHONE1",
+                name: "Contact_Phone1"
+            },
+            "Contact Phone 2": {
+                table_key: "B1_PHONE2",
+                name: "Contact_Phone2"
+            },
+            "Contact Email": {
+                table_key: "B1_EMAIL",
+                name: "Contact_Email"
+            },
+            "Contact Trade Name": {
+                table_key: "B1_TRADE_NAME",
+                name: "Contact Trade Name"
             }
         }
     },
