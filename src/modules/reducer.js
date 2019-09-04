@@ -82,7 +82,8 @@ const sCubeReducer = (state = initialState, action) => {
             let newState = _.cloneDeep(state);
             switch (newState.fields[action.payload.ref].table) {
                 case "ASI Field": {
-                    newState.fields[action.payload.ref].report = "ASI_" + action.payload.base.replace(/\W/g, '_');
+                    let name_string = "ASI_" + action.payload.base.replace(/\W/g, '_');
+                    newState.fields[action.payload.ref].report = name_string.substring(0,25);
                     break;
                 }
                 default: {
@@ -93,7 +94,7 @@ const sCubeReducer = (state = initialState, action) => {
                         }
                         if (f === action.payload.ref) continue;
                         if ((newState.fields[f].field === newState.fields[action.payload.ref].field) && (newState.fields[f].table === newState.fields[action.payload.ref].table)) {
-                            newState.fields[action.payload.ref].report = "DUPE!";
+                            newState.fields[action.payload.ref].report = action.payload.base + "_" + newState.fields[action.payload.ref].group;
                         } else {
                             newState.fields[action.payload.ref].report = action.payload.base;
                         }
