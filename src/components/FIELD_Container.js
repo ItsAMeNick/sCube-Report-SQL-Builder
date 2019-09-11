@@ -19,11 +19,18 @@ class FIELD_Container extends Component {
             rows.push(
                 <FieldItem key={i} id={i}/>
             );
-            //Add Required Filters
+            //Add Required Filters (Only the first one)
+            let min = -1;
             for (let f in this.props.filters) {
                 if (typeof this.props.filters[f].key !== "string") continue;
                 let filter_id = this.props.filters[f].key.split("-");
-                if (filter_id[1] === i) {
+                if (min === -1) min = filter_id[1];
+                else min = Math.min(min, filter_id[1]);
+            }
+            for (let f in this.props.filters) {
+                if (typeof this.props.filters[f].key !== "string") continue;
+                let filter_id = this.props.filters[f].key.split("-");
+                if (filter_id[1].toString() === min.toString() && filter_id[1] === i) {
                     rows.push(<Filter key={this.props.filters[f].key} id={this.props.filters[f].key} req={true}/>)
                 }
             }
