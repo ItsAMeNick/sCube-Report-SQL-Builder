@@ -144,8 +144,7 @@ class FIELD_Container extends Component {
         //These tables are one-offs and cannot share JOIN statements
         let list_of_ungroupable_tables = [
             "ASI Field",
-            "Contact Information",
-            "Fee"
+            "Standard Choice"
         ];
         return !(list_of_ungroupable_tables.includes(table));
     }
