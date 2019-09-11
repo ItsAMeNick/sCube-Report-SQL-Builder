@@ -40,7 +40,7 @@ class FILTER_Container extends Component {
         return (
             <div className="Container">
                 <h3>Filters (FILTER)</h3>
-                <Table bordered striped>
+                <Table bordered striped responsive>
                 <thead>
                     <tr>
                         <td>#</td>

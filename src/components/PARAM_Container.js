@@ -28,7 +28,7 @@ class PARAM_Container extends Component {
         return (
             <div className="Container">
                 <h3>User Input (PARAM)</h3>
-                <Table bordered striped>
+                <Table bordered striped responsive>
                 <thead>
                     <tr>
                         <td>#</td>

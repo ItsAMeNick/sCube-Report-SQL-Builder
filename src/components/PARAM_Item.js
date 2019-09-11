@@ -89,6 +89,13 @@ class PARAM_Item extends Component {
                 <td><Form.Control id={"group-"+this.props.id} as="select" value={this.props.parameters[this.props.id].group} onChange={this.handleChange}>
                     {this.getGroups(this.props.parameters[this.props.id].table)}
                 </Form.Control></td>
+                <td>
+                    <button onClick={() => {
+                        this.props.delete(this.props.id);
+                    }}>
+                        Delete
+                    </button>
+                </td>
             </tr>
         );
     }

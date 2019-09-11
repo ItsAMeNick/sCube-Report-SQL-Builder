@@ -37,7 +37,7 @@ class FIELD_Container extends Component {
         return (
             <div className="Container">
                 <h3>Data Selection (FIELD)</h3>
-                <Table bordered striped>
+                <Table bordered striped responsive>
                 <thead>
                     <tr>
                         <td>#</td>
