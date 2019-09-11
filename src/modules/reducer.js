@@ -207,8 +207,12 @@ const sCubeReducer = (state = initialState, action) => {
         }
         case "delete_item": {
             let newState = _.cloneDeep(state);
-            console.log(action.payload);
-            //delete newState[action.payload.type][action.payload.ref];
+            //First ungroup the item (if necessary)
+            let oldGroup = newState[action.payload.type][action.payload.ref].group;
+            newState.groups[oldGroup][action.payload.type].delete([action.payload.ref].toString());
+
+            //Then delete the item
+            delete newState[action.payload.type][action.payload.ref];
             return newState;
         }
 

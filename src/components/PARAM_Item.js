@@ -122,7 +122,14 @@ const mapDispatchToProps = dispatch => ({
             group: group,
             ref: myRef
         }
-    })
+    }),
+    delete: (myRef) => dispatch({
+        type: "delete_item",
+        payload: {
+            type: "parameters",
+            ref: myRef
+        }
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PARAM_Item);
