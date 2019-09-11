@@ -98,6 +98,16 @@ class FIELD_Container extends Component {
                         let keys = Object.keys(required_fields);
                         for (let r in keys) {
                             let filterRef = "R-" + this.props.id + "-" + keys[r];
+                            let starting_value = "";
+                            let required_filters = Array.from(this.props.groups[this.props.fields[this.props.id].group].filters).filter(item => {
+                                return item.split("-")[0] === "R";
+                            }).sort((a, b) => {
+                                return a.split("-")[1] > b.split("-")[1];
+                            });
+                            if (required_filters.length >= 1) {
+                                starting_value = this.props.filters[required_filters[0]].value;
+                                console.log(this.props.groups[this.props.fields[this.props.id].group].filters);
+                            }
                             let newFilter = {
                                             key: filterRef,
                                             group: this.props.fields[this.props.id].group,
@@ -105,7 +115,7 @@ class FIELD_Container extends Component {
                                             table: this.props.fields[this.props.id].table,
                                             field: keys[r],
                                             comparison: "",
-                                            value: ""
+                                            value: starting_value
                                             };
                             if (keys[r] === "ASI Field Name") {
                                 newFilter.comparison = "==";
@@ -118,7 +128,6 @@ class FIELD_Container extends Component {
                             if (!this.props.filters[filterRef]) {
                                 this.props.addFilter(filterRef, newFilter);
                             } else {
-                                console.log(filterRef, newFilter);
                                 this.props.requireFilter(filterRef, newFilter);
                             }
                             this.props.add2Group(this.props.fields[this.props.id].group, filterRef, "filters")

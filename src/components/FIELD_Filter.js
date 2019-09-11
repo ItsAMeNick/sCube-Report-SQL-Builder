@@ -20,14 +20,23 @@ class FIELD_Filter extends Component {
         let newItem = _.cloneDeep(this.props.filters[this.props.id]);
         let type = event.target.id.split("-")[0];
 
+        //9/11/2019: I think this is deprecieted, will keep my eye on it
         if (type === "group") {
             if (event.target.value) {
                 this.props.add2Group(event.target.value, this.props.id);
             }
         }
 
+        //Update myself, but also update anyone in my groups
         newItem[type] = event.target.value;
         this.props.update(this.props.id, newItem);
+
+        let group_members = Array.from(this.props.groups[this.props.filters[this.props.id].group].filters);
+        for (let g in group_members) {
+            let newFriend = _.cloneDeep(this.props.filters[group_members[g]]);
+            newFriend[type] = event.target.value;
+            this.props.update(group_members[g], newFriend);
+        }
 
         if (type === "value") {
             this.props.updateReportName(this.props.id.split("-")[1], event.target.value);
