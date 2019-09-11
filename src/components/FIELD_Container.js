@@ -41,8 +41,6 @@ class FIELD_Container extends Component {
                 }
             }
 
-            console.log(min_from_groups);
-
             for (let f in this.props.filters) {
                 if (typeof this.props.filters[f].key !== "string") continue;
                 let filter_id = this.props.filters[f].key.split("-")[1];
@@ -50,22 +48,6 @@ class FIELD_Container extends Component {
                     rows.push(<Filter key={this.props.filters[f].key} id={this.props.filters[f].key} req={true}/>)
                 }
             }
-            // let min = -1;
-            // for (let f in this.props.filters) {
-            //     if (typeof this.props.filters[f].key !== "string") continue;
-            //     let filter_id = this.props.filters[f].key.split("-");
-            //     if (this.props.fields[i].group === ) {
-            //         if (min === -1) min = filter_id[1];
-            //         else min = Math.min(min, filter_id[1]);
-            //     }
-            // }
-            // for (let f in this.props.filters) {
-            //     if (typeof this.props.filters[f].key !== "string") continue;
-            //     let filter_id = this.props.filters[f].key.split("-");
-            //     if (filter_id[1].toString() === min.toString() && filter_id[1] === i) {
-            //         rows.push(<Filter key={this.props.filters[f].key} id={this.props.filters[f].key} req={true}/>)
-            //     }
-            // }
         }
         return (
             rows
