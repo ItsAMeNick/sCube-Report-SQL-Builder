@@ -262,9 +262,7 @@ const sCubeReducer = (state = initialState, action) => {
                 }
 
                 for (let f in filters) {
-                    console.log(filters);
                     if (filters[f][0] === "R") {
-                        console.log("Required Filter: ", filters[f])
                         let corresponding_field = filters[f].split("-")[1];
                         if (newState.fields[corresponding_field] && parseInt(newState.fields[corresponding_field].group) === newState.groups[g].key) {
                             //console.log("GOOD");
@@ -276,6 +274,12 @@ const sCubeReducer = (state = initialState, action) => {
                         if (newState.filters[filters[f]] && parseInt(newState.filters[filters[f]].group) !== newState.groups[g].key) {
                             newState.groups[g].filters.delete(filters[f]);
                         }
+                    }
+                }
+
+                for (let p in parameters) {
+                    if (newState.parameters[parameters[p]] && parseInt(newState.parameters[parameters[p]].group) !== newState.groups[g].key) {
+                        newState.groups[g].parameters.delete(parameters[p])
                     }
                 }
 

@@ -25,7 +25,6 @@ class PARAM_Item extends Component {
                 this.props.add2Group(event.target.value, this.props.id);
             }
         }
-        console.log(type);
         newItem[type] = event.target.value;
         this.props.update(this.props.id, newItem);
     }
