@@ -114,7 +114,7 @@ class FIELD_Container extends Component {
                                             req: true,
                                             table: this.props.fields[this.props.id].table,
                                             field: keys[r],
-                                            comparison: "",
+                                            comparison: "==",
                                             value: starting_value
                                             };
                             if (keys[r] === "ASI Field Name") {

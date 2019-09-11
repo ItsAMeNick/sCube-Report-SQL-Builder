@@ -83,7 +83,16 @@ class CORE_Output extends Component {
 
                 //Add the Filters
                 let filters = Array.from(group.filters);
+                let filters_applied = [];
                 for (let f in filters) {
+                    //Only apply required filters once
+                    if (typeof filters[f] === "string") {
+                        if (filters_applied.includes(filters[f].split("-")[2])) {
+                            continue;
+                        } else {
+                            filters_applied.push(filters[f].split("-")[2]);
+                        }
+                    }
                     let filter = this.props.state.filters[filters[f]];
                     if (!filter) continue;
                     if (filter.table && (filter.table === tables[i].table) && filter.field) {
@@ -209,7 +218,16 @@ class CORE_Output extends Component {
 
         //Add the Filters
         let filters = Array.from(group.filters);
+        let filters_applied = [];
         for (let f in filters) {
+            //Only apply required filters once
+            if (typeof filters[f] === "string") {
+                if (filters_applied.includes(filters[f].split("-")[2])) {
+                    continue;
+                } else {
+                    filters_applied.push(filters[f].split("-")[2]);
+                }
+            }
             let filter = this.props.state.filters[filters[f]];
             if (!filter) continue;
             if (filter.table && (filter.table === tables[0].table) && filter.field) {
