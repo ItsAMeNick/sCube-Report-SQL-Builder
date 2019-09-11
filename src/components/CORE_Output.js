@@ -58,7 +58,11 @@ class CORE_Output extends Component {
                 from_table = i;
             } else {
                 if (this.props.state.groups[tables[i].group].fields.size) { //If this is in a group with field data
-                    text += "LEFT JOIN " + schema[tables[i].table].table_name + " " + tables[i].shortname + "\n";
+                    if (this.props.state.groups[tables[i].group].filters.size) { //If this group also has filters
+                        text += "JOIN " + schema[tables[i].table].table_name + " " + tables[i].shortname + "\n";
+                    } else {
+                        text += "LEFT JOIN " + schema[tables[i].table].table_name + " " + tables[i].shortname + "\n";
+                    }
                 } else {
                     text += "JOIN " + schema[tables[i].table].table_name + " " + tables[i].shortname + "\n";
                 }
