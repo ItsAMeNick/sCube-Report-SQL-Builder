@@ -33,9 +33,11 @@ class FIELD_Filter extends Component {
 
         let group_members = Array.from(this.props.groups[this.props.filters[this.props.id].group].filters);
         for (let g in group_members) {
-            let newFriend = _.cloneDeep(this.props.filters[group_members[g]]);
-            newFriend[type] = event.target.value;
-            this.props.update(group_members[g], newFriend);
+            if (this.props.filters[group_members[g].field] === newItem.field) {
+                let newFriend = _.cloneDeep(this.props.filters[group_members[g]]);
+                newFriend[type] = event.target.value;
+                this.props.update(group_members[g], newFriend);
+            }
         }
 
         if (type === "value") {
