@@ -70,7 +70,7 @@ class FIELD_Filter extends Component {
         switch(this.props.filters[this.props.id].field) {
             case "ASI Field Name": {
                 return (
-                    <tr style={{"backgroundColor": "#FBBBB9"}}>
+                    <tr style={{"backgroundColor": "#C6DEFF"}}>
                         <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
                         <td>
                             <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
@@ -90,7 +90,7 @@ class FIELD_Filter extends Component {
             }
             case "Fee Item": {
                 return (
-                    <tr style={{"backgroundColor": "#FBBBB9"}}>
+                    <tr style={{"backgroundColor": "#C6DEFF"}}>
                         <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
                         <td>
                             <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
@@ -110,7 +110,7 @@ class FIELD_Filter extends Component {
             }
             case "Contact Type": {
                 return (
-                    <tr style={{"backgroundColor": "#FBBBB9"}}>
+                    <tr style={{"backgroundColor": "#C6DEFF"}}>
                         <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
                         <td>
                             <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
@@ -130,7 +130,7 @@ class FIELD_Filter extends Component {
             }
             case "STDC Group": {
                 return (
-                    <tr style={{"backgroundColor": "#FBBBB9"}}>
+                    <tr style={{"backgroundColor": "#C6DEFF"}}>
                         <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
                         <td>
                             <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
@@ -150,7 +150,7 @@ class FIELD_Filter extends Component {
             }
             case "STDC Field": {
                 return (
-                    <tr style={{"backgroundColor": "#FBBBB9"}}>
+                    <tr style={{"backgroundColor": "#C6DEFF"}}>
                         <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
                         <td>
                             <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
@@ -170,7 +170,7 @@ class FIELD_Filter extends Component {
             }
             default: {
                 return (
-                    <tr style={{"backgroundColor": "#FBBBB9"}}>
+                    <tr style={{"backgroundColor": "#C6DEFF"}}>
                         <td>{this.props.id.split("-")[0] + "\u2011" + this.props.id.split("-")[1]}</td>
                         <td>
                             <Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} readOnly onChange={this.handleChange}/>
