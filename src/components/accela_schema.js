@@ -104,6 +104,149 @@ var accela_data = {
             }
         }
     },
+    "Current Workflow Information": {
+        table_name: "GPROCESS",
+        shortname: "workflow",
+        parent: null,
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
+        required: null,
+        data: {
+            "Current Workflow Task": {
+                table_key: "SD_PRO_DES",
+                name: "WF_Task"
+            },
+            "Current Workflow Status": {
+                table_key: "SD_APP_DES",
+                name: "WF_Status"
+            },
+            "Current Workflow Assigned Date": {
+                table_key: "G6_ASGN_DD",
+                name: "WF_Assigned_Date"
+            },
+            "Current Workflow Status Date": {
+                table_key: "G6_STAT_DD",
+                name: "WF_Status_Date"
+            },
+            "Current Workflow Task Due Date": {
+                table_key: "B1_DUE_DD",
+                name: "WF_Due_Date"
+            }
+        }
+    },
+    "Payment Information": {
+        table_name: "F4PAYMENT",
+        shortname: "payment",
+        parent: null,
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
+        required: null,
+        data: {
+            "Receipt Number": {
+                table_key: "RECEIPT_NBR",
+                name: "Receipt_NBR"
+            },
+            "Payment Date": {
+                table_key: "PAYMENT_DATE",
+                name: "payment_Date"
+            },
+            "Payment Amount": {
+                table_key: "PAYMENT_AMOUNT",
+                name: "Payment_Amount"
+            },
+            "Payment Status": {
+                table_key: "PAYMENT_STATUS",
+                name: "payment_Status"
+            },
+            "Transaction Number": {
+                table_key: "TRANSACTION_NBR",
+                name: "transaction_NBR"
+            }
+        }
+    },
+    "Owner Information": {
+        table_name: "B3OWNERS",
+        shortname: "OWNER",
+        parent: null,
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
+        required: null,
+        data: {
+            "First Name": {
+                table_key: "B1_OWNER_FNAME",
+                name: "O_First_Name"
+            },
+            "Middle Name": {
+                table_key: "B1_OWNER_MNAME",
+                name: "O_Middle_Name"
+            },
+            "Last Name": {
+                table_key: "B1_OWNER_LNAME",
+                name: "O_Last_Name"
+            },
+            "Owner Address 1": {
+                table_key: "B1_ADDRESS1",
+                name: "O_Address1"
+            },
+            "Owner Address 2": {
+                table_key: "B1_ADDRESS2",
+                name: "O_Address2"
+            },
+            "Owner Address 3": {
+                table_key: "B1_ADDRESS3",
+                name: "O_Address3"
+            },
+            "Owner City": {
+                table_key: "B1_CITY",
+                name: "O_City"
+            },
+            "Owner State": {
+                table_key: "B1_STATE",
+                name: "O_State"
+            },
+            "Owner Zip": {
+                table_key: "B1_ZIP",
+                name: "O_Zip"
+            },
+            "Owner Country": {
+                table_key: "B1_COUNTRY",
+                name: "O_Country"
+            },
+            "Owner Mailing Address 1": {
+                table_key: "B1_MAIL_ADDRESS1",
+                name: "OM_Address1"
+            },
+            "Owner Mailing Address 2": {
+                table_key: "B1_MAIL_ADDRESS2",
+                name: "OM_Address2"
+            },
+            "Owner Mailing Address 3": {
+                table_key: "B1_MAIL_ADDRESS3",
+                name: "OM_Address3"
+            },
+            "Owner Mailing City": {
+                table_key: "B1_MAIL_CITY",
+                name: "OM_City"
+            },
+            "Owner Mailing State": {
+                table_key: "B1_MAIL_STATE",
+                name: "OM_State"
+            },
+            "Owner Mailing Zip": {
+                table_key: "B1_MAIL_ZIP",
+                name: "OM_Zip"
+            },
+            "Owner Mailing Country": {
+                table_key: "B1_MAIL_COUNTRY",
+                name: "OM_Country"
+            },
+            "Owner Phone": {
+                table_key: "B1_PHONE",
+                name: "O_Phone1"
+            },
+            "Owner Email": {
+                table_key: "B1_EMAIL",
+                name: "O_Email"
+            },
+        }
+    },
     "Parcel Information": {
         table_name: "B3PARCEL",
         shortname: "parcel",
