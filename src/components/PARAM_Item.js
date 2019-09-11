@@ -92,6 +92,7 @@ class PARAM_Item extends Component {
                 <td>
                     <button onClick={() => {
                         this.props.delete(this.props.id);
+                        this.props.validateGroups();
                     }}>
                         Delete
                     </button>
@@ -129,6 +130,10 @@ const mapDispatchToProps = dispatch => ({
             type: "parameters",
             ref: myRef
         }
+    }),
+    validateGroups: () => dispatch({
+        type: "validate_groups",
+        payload: null
     }),
 });
 

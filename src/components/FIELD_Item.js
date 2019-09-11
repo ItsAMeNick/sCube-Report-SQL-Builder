@@ -181,6 +181,14 @@ class FIELD_Container extends Component {
                 </Form.Control></td>
                 <td><Form.Control id={"report-"+this.props.id} readOnly value={this.props.fields[this.props.id].report}></Form.Control></td>
                 <td><Form.Control id={"group-field-"+this.props.id} readOnly value={this.props.fields[this.props.id].group}></Form.Control></td>
+                <td>
+                    <button onClick={() => {
+                        this.props.delete(this.props.id);
+                        this.props.validateGroups();
+                    }}>
+                        Delete
+                    </button>
+                </td>
             </tr>
         );
     }
@@ -249,7 +257,14 @@ const mapDispatchToProps = dispatch => ({
     validateGroups: () => dispatch({
         type: "validate_groups",
         payload: null
-    })
+    }),
+    delete: (myRef) => dispatch({
+        type: "delete_item",
+        payload: {
+            type: "fields",
+            ref: myRef
+        }
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FIELD_Container);

@@ -102,6 +102,14 @@ class FILTER_Item extends Component {
                         {this.getGroups(this.props.filters[this.props.id].table)}
                     </Form.Control></td>
                 </React.Fragment> }
+                { this.props.req ? null : <td>
+                    <button onClick={() => {
+                        this.props.delete(this.props.id);
+                        this.props.validateGroups();
+                    }}>
+                        Delete
+                    </button>
+                </td> }
             </tr>
         );
     }
@@ -140,7 +148,14 @@ const mapDispatchToProps = dispatch => ({
     validateGroups: () => dispatch({
         type: "validate_groups",
         payload: null
-    })
+    }),
+    delete: (myRef) => dispatch({
+        type: "delete_item",
+        payload: {
+            type: "filters",
+            ref: myRef
+        }
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FILTER_Item);

@@ -145,7 +145,7 @@ const sCubeReducer = (state = initialState, action) => {
                         m = Math.max(m,state.fields[codes[c]].key);
                     }
                     m+=1;
-                    let g = null;
+                    let g = "";
                     if (newState.fields[m-1]) g = newState.fields[m-1].group;
                     newState.fields[m] =
                         {
@@ -209,7 +209,11 @@ const sCubeReducer = (state = initialState, action) => {
             let newState = _.cloneDeep(state);
             //First ungroup the item (if necessary)
             let oldGroup = newState[action.payload.type][action.payload.ref].group;
-            newState.groups[oldGroup][action.payload.type].delete([action.payload.ref].toString());
+            if (oldGroup){
+                //I do the same deletion twice incase the group has been cast to an int or to a string
+                newState.groups[oldGroup][action.payload.type].delete([action.payload.ref].toString());
+                newState.groups[oldGroup][action.payload.type].delete(parseInt([action.payload.ref]));
+            }
 
             //Then delete the item
             delete newState[action.payload.type][action.payload.ref];
