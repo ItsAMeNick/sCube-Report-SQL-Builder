@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import jszip from "jszip";
 import fxp from "fast-xml-parser";
 
+import XML_Select from "./CORE_Select_XML.js";
+
 class CORE_Upload extends Component {
     constructor(props) {
         super(props);
@@ -389,6 +391,7 @@ class CORE_Upload extends Component {
         return (
         <div>
              <input type="file" name="file" onChange={this.handleChange}/>
+             <XML_Select/>
         </div>
         );
     }

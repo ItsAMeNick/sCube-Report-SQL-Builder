@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
+import Form from "react-bootstrap/Form";
+
 class CORE_XML extends Component {
     constructor(props) {
         super(props);
@@ -11,6 +13,12 @@ class CORE_XML extends Component {
         return (
             <div>
                 Filter Dropdows
+                <Form.Control as="select" multiple onChange={this.handleMulti}>
+                    <option label="Item1"/>
+                    <option label="Item2"/>
+                    <option label="Item3"/>
+                    <option label="Item4"/>
+                </Form.Control>
             </div>
         );
     }
