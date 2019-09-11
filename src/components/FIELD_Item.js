@@ -152,6 +152,7 @@ class FIELD_Container extends Component {
 
     getAccelaTables() {
         let tables = [""].concat(Object.keys(schema));
+        tables = tables.sort();
         tables = tables.map(t => {
             return <option key={t} label={t} value={t}/>
         });
@@ -161,6 +162,7 @@ class FIELD_Container extends Component {
     getAccelaFields(table) {
         if (!table) return <option/>;
         let fields = [""].concat(Object.keys(schema[table].data));
+        fields = fields.sort();
         fields = fields.map(f => {
             return <option key={f} label={f} value={f}/>
         });
