@@ -215,7 +215,20 @@ const sCubeReducer = (state = initialState, action) => {
                 newState.groups[oldGroup][action.payload.type].delete(parseInt([action.payload.ref]));
             }
 
-            //Then delete the item
+            //If its a field, delete any required fields
+            if (action.payload.type === "fields") {
+                console.log("Field");
+                let keys = Object.keys(newState.filters);
+                for (let f in keys) {
+                    console.log(f);
+                    let item = keys[f];
+                    if (item.split("-")[0] === "R" && item.split("-")[1] === action.payload.ref) {
+                        delete newState.filters[item];
+                    }
+                }
+            }
+
+            //Finally delete the item
             delete newState[action.payload.type][action.payload.ref];
             return newState;
         }
