@@ -230,7 +230,7 @@ class FIELD_Filter extends Component {
             return cap.fee_code;
         });
         let codes = [<option key={-1}/>]
-        let used_codes = []
+        let used_codes = [];
         codes = codes.concat(this.props.loaded_fees.filter(item => {
             if (used_codes.includes(item.code)) {
                 return false;
