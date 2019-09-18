@@ -197,8 +197,16 @@ class FIELD_Filter extends Component {
     }
 
     loadASIsFromData() {
+        let active_records = this.props.loaded_caps.filter(cap => {
+            if (!this.props.active_records) return true;
+            return this.props.active_records.includes(cap.key.toString());
+        }).map(cap => {
+            return cap.asi_code;
+        });
         return [<option key={-1}/>].concat(this.props.loaded_asis.filter(item => {
             return item.group === "APPLICATION";
+        }).filter(item => {
+            return active_records.includes(item.code);
         }).sort((item1, item2) => {
             if (item1.code.localeCompare(item2.code) === 0) {
                 if (item1.type.localeCompare(item2.type) === 0) {
@@ -273,10 +281,12 @@ render() {
 const mapStateToProps = state => ({
     filters: state.filters,
     groups: state.groups,
+    loaded_caps: state.loaded_data.caps,
     loaded_asis: state.loaded_data.asis,
     loaded_fees: state.loaded_data.fees,
     loaded_contacts: state.loaded_data.contact_types,
     loaded_std: state.loaded_data.std_choices,
+    active_records: state.active_records,
 });
 
 const mapDispatchToProps = dispatch => ({
