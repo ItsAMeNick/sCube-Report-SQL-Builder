@@ -241,7 +241,6 @@ class FIELD_Filter extends Component {
         }).filter(item => {
             return active_records.includes(item.schedule)
         }).sort((item1, item2) => {
-            console.log(item1)
             return item1.code.localeCompare(item2.code);
         }).map(item => {
             return <option key={item.key} label={item.code+" - "+item.desc} value={item.code}/>

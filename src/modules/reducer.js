@@ -81,12 +81,21 @@ const sCubeReducer = (state = initialState, action) => {
 
         case "update_report_name": {
             let newState = _.cloneDeep(state);
+            console.log(newState.fields[action.payload.ref].table);
             switch (newState.fields[action.payload.ref].table) {
                 case "ASI Field": {
                     //Note: I have not accounted for two ASI fields having a name that is not unique for the first 24 characters
                     //If two custom fields are identical for the first 27 characters, 1) Thats bad naming 2) the SQL "as blah" will need to be manually adjusted
                     //ex. This_is_a_long_asi_field_1 and This_is_a_long_asi_field_2 will both be represented as This_is_a_long_asi_field
                     let name_string = "ASI_" + action.payload.base.replace(/\W/g, '_');
+                    newState.fields[action.payload.ref].report = name_string.substring(0,28);
+                    break;
+                }
+                case "Fee": {
+                    //Note: I have not accounted for two ASI fields having a name that is not unique for the first 24 characters
+                    //If two custom fields are identical for the first 27 characters, 1) Thats bad naming 2) the SQL "as blah" will need to be manually adjusted
+                    //ex. This_is_a_long_asi_field_1 and This_is_a_long_asi_field_2 will both be represented as This_is_a_long_asi_field
+                    let name_string = "Fee_" + action.payload.base.replace(/\W/g, '_');
                     newState.fields[action.payload.ref].report = name_string.substring(0,28);
                     break;
                 }

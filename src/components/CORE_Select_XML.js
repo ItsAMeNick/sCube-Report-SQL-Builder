@@ -10,7 +10,6 @@ class CORE_XML extends Component {
     }
 
     genOptions() {
-        console.log("Doing options")
         if (!this.props.record_types) return null;
         let record_types = this.props.record_types.map(cap => {
             let record = [cap.module, cap.type, cap.subtype, cap.category].join("/");
