@@ -14,7 +14,7 @@ class CORE_XML extends Component {
         if (!this.props.record_types) return null;
         let record_types = this.props.record_types.map(cap => {
             let record = [cap.module, cap.type, cap.subtype, cap.category].join("/");
-            return <option key={cap.key} value={record} label={record}/>
+            return <option key={cap.key} value={cap.key} label={record}/>
         })
         return record_types;
     }
@@ -24,7 +24,7 @@ class CORE_XML extends Component {
         selected = [...event.target.options].filter(o => {
             return o.selected;
         }).map(o => {
-            return o.label;
+            return o.value;
         })
         this.props.update(selected);
     }
