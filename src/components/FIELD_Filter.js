@@ -223,7 +223,12 @@ class FIELD_Filter extends Component {
     }
 
     loadFeesFromData() {
-        console.log(this.props.loaded_fees)
+        let active_records = this.props.loaded_caps.filter(cap => {
+            if (!this.props.active_records) return true;
+            return this.props.active_records.includes(cap.key.toString());
+        }).map(cap => {
+            return cap.fee_code;
+        });
         let codes = [<option key={-1}/>]
         let used_codes = []
         codes = codes.concat(this.props.loaded_fees.filter(item => {
@@ -233,6 +238,8 @@ class FIELD_Filter extends Component {
                 used_codes.push(item.code);
                 return true;
             }
+        }).filter(item => {
+            return active_records.includes(item.schedule)
         }).sort((item1, item2) => {
             console.log(item1)
             return item1.code.localeCompare(item2.code);
