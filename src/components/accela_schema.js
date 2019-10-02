@@ -59,7 +59,6 @@ var accela_data = {
                 name: "Record_Name"
             }
         }
-        
     },
     "Address Information": {
         table_name: "B3ADDRES",
