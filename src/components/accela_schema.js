@@ -272,6 +272,23 @@ var accela_data = {
             }
         }
     },
+    "Expiration Information": {
+        table_name: "B1EXPIRATION",
+        shortname: "expInfo",
+        parent: null,
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
+        required: null,
+        data: {
+            "Expiration Status": {
+                table_key: "EXPIRATION_STATUS",
+                name: "Expiration_Status"
+            },
+            "Expiration Date": {
+                table_key: "EXPIRATION_DATE",
+                name: "EXPIRATION_DATE"
+            },
+        }
+    },
     "ASI Field": {
         table_name: "BCHCKBOX",
         shortname: "asi",
@@ -360,7 +377,81 @@ var accela_data = {
             },
             "Contact Trade Name": {
                 table_key: "B1_TRADE_NAME",
-                name: "Contact Trade Name"
+                name: "Contact_Trade_Name"
+            }
+        }
+    },
+    "Professional Information": {
+        table_name: "B3CONTRA",
+        shortname: "professional",
+        parent: null,
+        join_clause: ["SERV_PROV_CODE", "B1_PER_ID1", "B1_PER_ID2", "B1_PER_ID3"],
+        required: {
+            "LICENSED PROFESSIONAL TYPE": {
+                table_key: "B1_LICENSE_TYPE",
+                name: "License_Type"
+            }
+        },
+        data: {
+            "First Name": {
+                table_key: "B1_CAE_FNAME",
+                name: "First_Name"
+            },
+            "Middle Name": {
+                table_key: "B1_CAE_MNAME",
+                name: "Middle_Name"
+            },
+            "Last Name": {
+                table_key: "B1_CAE_LNAME",
+                name: "Last_Name"
+            },
+            "Business Name": {
+                table_key: "B1_BUS_NAME",
+                name: "Professional_Business_Name"
+            },
+            "Professional Address 1": {
+                table_key: "B1_ADDRESS1",
+                name: "Professional_Address1"
+            },
+            "Professional Address 2": {
+                table_key: "B1_ADDRESS2",
+                name: "Professional_Address2"
+            },
+            "Professional Address 3": {
+                table_key: "B1_ADDRESS3",
+                name: "Professional_Address3"
+            },
+            "Professional City": {
+                table_key: "B1_CITY",
+                name: "Professional_City"
+            },
+            "Professional State": {
+                table_key: "B1_STATE",
+                name: "Professional_State"
+            },
+            "Professional Zip": {
+                table_key: "B1_ZIP",
+                name: "Professional_Zip"
+            },
+            "Professional Country": {
+                table_key: "B1_COUNTRY",
+                name: "Professional_Country"
+            },
+            "Professional Phone 1": {
+                table_key: "B1_PHONE1",
+                name: "Professional_Phone1"
+            },
+            "Professional Phone 2": {
+                table_key: "B1_PHONE2",
+                name: "Professional_Phone2"
+            },
+            "Professional Email": {
+                table_key: "B1_EMAIL",
+                name: "Professional_Email"
+            },
+            "Professional License Number": {
+                table_key: "B1_LICENSE_NBR",
+                name: "Prof_License_Num"
             }
         }
     },
