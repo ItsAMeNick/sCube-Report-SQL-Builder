@@ -99,6 +99,20 @@ const sCubeReducer = (state = initialState, action) => {
                     newState.fields[action.payload.ref].report = name_string.substring(0,28);
                     break;
                 }
+                case "Contact Information": {
+                    //Note: I have not accounted for two ASI fields having a name that is not unique for the first 24 characters
+                    //If two custom fields are identical for the first 27 characters, 1) Thats bad naming 2) the SQL "as blah" will need to be manually adjusted
+                    //ex. This_is_a_long_asi_field_1 and This_is_a_long_asi_field_2 will both be represented as This_is_a_long_asi_field
+                    let filters = Array.from(newState.groups[newState.fields[action.payload.ref].group].filters).filter(item => {
+                        return item[0] === "R";
+                    })
+                    let cont_type = newState.filters[filters[0]].value
+                    console.log(cont_type);
+                    let name_string = cont_type.replace(/\W/g, '_').substring(0,5);
+                    name_string += "_" + action.payload.base.replace("Contact_", "").replace(/\W/g, '_');;
+                    newState.fields[action.payload.ref].report = name_string.substring(0,28);
+                    break;
+                }
                 default: {
                     for (let f in newState.fields) {
                         if (Object.keys(newState.fields).length === 1) {

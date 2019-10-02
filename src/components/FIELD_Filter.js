@@ -41,7 +41,11 @@ class FIELD_Filter extends Component {
         }
 
         if (type === "value") {
-            this.props.updateReportName(this.props.id.split("-")[1], event.target.value);
+            if (this.props.filters[this.props.id].field === "Contact Type") {
+                this.props.updateReportName(this.props.id.split("-")[1], this.props.fields[this.props.id.split("-")[1]].field);
+            } else {
+                this.props.updateReportName(this.props.id.split("-")[1], event.target.value);
+            }
         }
     }
 
@@ -285,6 +289,7 @@ render() {
 }
 
 const mapStateToProps = state => ({
+    fields: state.fields,
     filters: state.filters,
     groups: state.groups,
     loaded_caps: state.loaded_data.caps,
