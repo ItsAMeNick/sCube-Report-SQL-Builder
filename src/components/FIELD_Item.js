@@ -71,11 +71,13 @@ class FIELD_Container extends Component {
         }
 
         //Handle required Filters
-        if (type === "field" || type === "table") {
+        if (type === "field" || type === "table" || type === "group") {
             let table = this.props.fields[this.props.id].table;
             let field;
             if (type === "field") {
                 field = event.target.value;
+            } else if (type === "group") {
+                field = this.props.fields[this.props.id].field;
             }
 
             if (table) {
@@ -106,7 +108,6 @@ class FIELD_Container extends Component {
                             });
                             if (required_filters.length >= 1) {
                                 starting_value = this.props.filters[required_filters[0]].value;
-                                console.log(this.props.groups[this.props.fields[this.props.id].group].filters);
                             }
                             let newFilter = {
                                             key: filterRef,
@@ -117,6 +118,7 @@ class FIELD_Container extends Component {
                                             comparison: "==",
                                             value: starting_value
                                             };
+                            //Set default comparison type for different groups
                             if (keys[r] === "ASI Field Name") {
                                 newFilter.comparison = "==";
                             } else if (this.props.fields[this.props.id].table === "Contact Information") {
@@ -137,6 +139,7 @@ class FIELD_Container extends Component {
             }
         }
         //Do this every time you update
+        // This makes sure that the report name is being specified
         if (type === "field") {
             let table, field;
             table = this.props.fields[this.props.id].table;
@@ -145,6 +148,25 @@ class FIELD_Container extends Component {
                 this.props.updateReportName(this.props.id, schema[table].data[field].name);
             }
         }
+
+        // This allows for new groups to be generated for data selection
+        // This lets you have multiple sets of required filters
+        if (type === "group") {
+            if (event.target.value === "New") {
+                this.props.addGroup(this.props.fields[this.props.id].table, this.props.id);
+                //addGroup will handle moving all the requried filters
+            } else if (event.target.value) {
+                this.props.add2Group(parseInt(event.target.value), this.props.id, "fields");
+                //Move required Filters
+                for (let f in this.props.filters) {
+                    let filter = this.props.filters[f].key.split("-");
+                    if (filter[0] === "R" && filter[1] === this.props.id.toString()) {
+                        this.props.add2Group(parseInt(event.target.value), this.props.filters[f].key, "filters");
+                    }
+                }
+            }
+        }
+
         this.props.validateGroups();
     }
 
@@ -177,6 +199,21 @@ class FIELD_Container extends Component {
         return fields;
     }
 
+    getGroups(table) {
+        //Good God, Get a Group Gurl
+        if (!table) return <option/>
+        let groups = this.props.groups;
+        let keys = Object.keys(groups);
+        keys = keys.filter(k => {
+            return (groups[k].table === table)
+        });
+        keys = [""].concat(keys).concat(["New"]);
+        keys = keys.map(k => {
+            return <option label={k} value={k} key={k}/>
+        });
+        return keys;
+    }
+
     render() {
         return (
             <tr>
@@ -188,7 +225,9 @@ class FIELD_Container extends Component {
                     {this.getAccelaFields(this.props.fields[this.props.id].table)}
                 </Form.Control></td>
                 <td><Form.Control id={"report-"+this.props.id} readOnly value={this.props.fields[this.props.id].report}></Form.Control></td>
-                <td><Form.Control id={"group-field-"+this.props.id} readOnly value={this.props.fields[this.props.id].group}></Form.Control></td>
+                <td><Form.Control id={"group-field-"+this.props.id} as="select" value={this.props.fields[this.props.id].group} onChange={this.handleChange}>
+                    {this.getGroups(this.props.fields[this.props.id].table)}
+                </Form.Control></td>
                 <td>
                     <button onClick={() => {
                         this.props.delete(this.props.id);

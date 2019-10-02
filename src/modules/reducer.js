@@ -138,6 +138,22 @@ const sCubeReducer = (state = initialState, action) => {
             newState.groups[m][action.payload.type].add(action.payload.ref);
             //Update my creator
             newState[action.payload.type][action.payload.ref].group = m;
+
+            //Move required Filters
+            for (let f in newState.filters) {
+                let filter = newState.filters[f].key.split("-");
+                console.log(action.payload.ref);
+                if (filter[0] === "R" && filter[1] === action.payload.ref.toString()) {
+                    //Using code from add_to_group
+                    //Did not just make this function call because the new group
+                    //Did not change "fast" enough to be used in the comoponent
+                    newState.groups[m]["filters"].add(newState.filters[f].key);
+                    newState["filters"][newState.filters[f].key].group = m;
+
+                }
+                console.log(filter);
+            }
+
             return newState;
         }
 
