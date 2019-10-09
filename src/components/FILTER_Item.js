@@ -81,14 +81,14 @@ class FILTER_Item extends Component {
                     </td>
                 </React.Fragment> : <React.Fragment>
                     <td>{this.props.id}</td>
-                    <td><Form.Control id={"table-name-"+this.props.id} as="select" onChange={this.handleChange}>
+                    <td><Form.Control id={"table-name-"+this.props.id} value={this.props.filters[this.props.id].table} disabled={!this.props.id} as="select" onChange={this.handleChange}>
                         {this.getAccelaTables()}
                     </Form.Control></td>
-                    <td><Form.Control id={"field-name-"+this.props.id} as="select" onChange={this.handleChange}>
+                    <td><Form.Control id={"field-name-"+this.props.id} value={this.props.filters[this.props.id].field} disabled={!this.props.id} as="select" onChange={this.handleChange}>
                         {this.getAccelaFields(this.props.filters[this.props.id].table)}
                     </Form.Control></td>
                 </React.Fragment> }
-                <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} onChange={this.handleChange}>
+                <td><Form.Control id={"comparison-"+this.props.id} as="select" value={this.props.filters[this.props.id].comparison} disabled={!this.props.id} onChange={this.handleChange}>
                     <option label="" value=""/>
                     <option label="Equal To" value="=="/>
                     <option label="Not Equal To" value="!="/>
@@ -98,7 +98,7 @@ class FILTER_Item extends Component {
                     <td><Form.Control id={"group-filter-"+this.props.id} readOnly value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
                     </Form.Control></td>
                 </React.Fragment> : <React.Fragment>
-                    <td><Form.Control id={"group-filter-"+this.props.id} as="select" value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
+                    <td><Form.Control id={"group-filter-"+this.props.id} disabled={!this.props.id} as="select" value={this.props.filters[this.props.id].group} onChange={this.handleChange}>
                         {this.getGroups(this.props.filters[this.props.id].table)}
                     </Form.Control></td>
                 </React.Fragment> }

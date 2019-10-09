@@ -4,13 +4,13 @@ const initialState = {
     report_type: null,
     server_type: null,
     groups: {
-        // 1: {
-        //     key: 1,
-        //     table: "",
-        //     fields: new Set([]),
-        //     filters: new Set([]),
-        //     parameters: new Set([])
-        // }
+        0: {
+            key: 0,
+            table: "Permit Information",
+            fields: new Set([]),
+            filters: new Set(["0"]),
+            parameters: new Set([])
+        }
     },
     fields: {
         1: {
@@ -31,6 +31,15 @@ const initialState = {
         //     comparison: "",
         //     value: ""
         // }
+        0: {
+            key: 0,
+            group: "0",
+            req: false,
+            table: "Permit Information",
+            field: "Service Provider Code",
+            comparison: "==",
+            value: ""
+        }
     },
     parameters: {
         // 1: {

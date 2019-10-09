@@ -77,7 +77,6 @@ class CORE_Api extends Component {
                 this.getEMSECall(r.access_token);
             });
         } else {
-            console.log(this.state.auth)
             this.getEMSECall(this.state.auth);
         }
     }
@@ -85,7 +84,6 @@ class CORE_Api extends Component {
     getEMSECall(auth) {
         let url = "https://apis.accela.com/v4/scripts/GENERATE_REPORT_OUTPUT";
         let body = {"SQL_TO_RUN": this.props.query.replace(/(\r\n|\n|\r)/g, " ")};
-        console.log(body);
 
         fetch(url, {
             method: 'POST',
@@ -101,7 +99,6 @@ class CORE_Api extends Component {
             body: JSON.stringify(body)
         }).then(response => response.text())
         .then(text => {
-            console.log(text)
             let c = JSON.parse(text).result["SQL Results: "]
             if (c) {
                 c = c.split('\n');
