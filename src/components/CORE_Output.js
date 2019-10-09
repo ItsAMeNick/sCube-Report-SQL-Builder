@@ -30,11 +30,13 @@ class CORE_Output extends Component {
         let shortnames = [];
 
         for (let g in this.props.state.groups) {
-            shortnames.push({
-                table: this.props.state.groups[g].table,
-                group: this.props.state.groups[g].key,
-                shortname: schema[this.props.state.groups[g].table].shortname+g
-            });
+            if (this.props.state.groups[g].table) {
+                shortnames.push({
+                    table: this.props.state.groups[g].table,
+                    group: this.props.state.groups[g].key,
+                    shortname: schema[this.props.state.groups[g].table].shortname+g
+                });
+            }
         }
 
         //Prioritize B1PERMIT
