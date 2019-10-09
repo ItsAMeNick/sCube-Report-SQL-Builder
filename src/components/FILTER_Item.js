@@ -102,7 +102,7 @@ class FILTER_Item extends Component {
                         {this.getGroups(this.props.filters[this.props.id].table)}
                     </Form.Control></td>
                 </React.Fragment> }
-                { this.props.req ? null : <td>
+                { (this.props.req || !this.props.id) ? null : <td>
                     <button onClick={() => {
                         this.props.delete(this.props.id);
                         this.props.validateGroups();
