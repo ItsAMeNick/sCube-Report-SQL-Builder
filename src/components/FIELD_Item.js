@@ -159,7 +159,7 @@ class FIELD_Container extends Component {
                 this.props.add2Group(parseInt(event.target.value), this.props.id, "fields");
                 //Move required Filters
                 for (let f in this.props.filters) {
-                    let filter = this.props.filters[f].key.split("-");
+                    let filter = this.props.filters[f].key.toString().split("-");
                     if (filter[0] === "R" && filter[1] === this.props.id.toString()) {
                         this.props.add2Group(parseInt(event.target.value), this.props.filters[f].key, "filters");
                     }
