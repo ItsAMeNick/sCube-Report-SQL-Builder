@@ -29,8 +29,9 @@ class CORE_XML extends Component {
     }
 
     render() {
-        return (
+        return (this.props.record_types ?
             <div>
+                <hr/>
                 <Form.Label>
                     Filter Dropdowns
                 </Form.Label>
@@ -38,6 +39,8 @@ class CORE_XML extends Component {
                     {this.genOptions()}
                 </Form.Control>
             </div>
+            :
+            <div/>
         );
     }
 }

@@ -391,7 +391,6 @@ class CORE_Upload extends Component {
         return (
         <div>
              <input type="file" name="file" onChange={this.handleChange}/>
-             <hr/>
              <XmlSelect/>
         </div>
         );
