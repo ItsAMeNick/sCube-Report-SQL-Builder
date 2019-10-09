@@ -155,8 +155,7 @@ const sCubeReducer = (state = initialState, action) => {
 
             //Move required Filters
             for (let f in newState.filters) {
-                let filter = newState.filters[f].key.split("-");
-                console.log(action.payload.ref);
+                let filter = newState.filters[f].key.toString().split("-");
                 if (filter[0] === "R" && filter[1] === action.payload.ref.toString()) {
                     //Using code from add_to_group
                     //Did not just make this function call because the new group
