@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "fast-xml-parser": "^3.12.20",
+    "fast-xml-parser": "^4.2.4",
     "jszip": "^3.2.2",
     "lodash": "^4.17.14",
     "react": "^16.8.6",
